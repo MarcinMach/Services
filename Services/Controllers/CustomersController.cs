@@ -22,18 +22,20 @@ namespace Services.Controllers
         }
 
         // GET: Customers/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             var customer = CustomerManager.Customers;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-                   
-            { 
+            var selected =  CustomerManager.GetById(id);
+            if(customer == null)   
+            {
+             
                  return HttpNotFound();          
             }
-            return View(customer);
+            return View(selected);
         }
 
         // GET: Customers/Create

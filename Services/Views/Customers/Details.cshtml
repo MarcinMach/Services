@@ -1,90 +1,96 @@
 ﻿@model Services.businessLogic.Customer
 
 @{
-    Layout = null;
+    ViewBag.Title = "Home Page";
 }
 
-<!DOCTYPE html>
+
+
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
 </head>
 <body>
     <div>
+        <p></p>
         <h4>Customer</h4>
         <hr />
-        <dl class="dl-horizontal">
+        <table class="table table-inverse">
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Surname)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Surname)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.CompanyName)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.CompanyName)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Street)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Street)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.City)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.City)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.Code)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.Code)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.PhoneNumber)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.NIP)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.NIP)
             </dd>
-    
-        </dl>
-    </div>
+
+            </dl>
+</table>
+</div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+      
         @Html.ActionLink("Back to List", "Index")
     </p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 </body>
 </html>

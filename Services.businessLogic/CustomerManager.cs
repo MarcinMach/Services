@@ -118,5 +118,25 @@ namespace Services.businessLogic
         }
         #endregion
 
+        public static Customer Add(int projectId)
+        {
+            try
+            {
+                using (var context = new ServicesDBEntities())
+                {
+                    List<Customer> create = context.Customers
+                      .OrderByDescending(x => x.Id == projectId)
+                      .ToList<Customer>();
+
+                    return create
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+        
     }
 }
