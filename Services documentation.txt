@@ -1,0 +1,61 @@
+1. Cel projektu:
+
+Tworzenie faktury Vat
+
+
+2. Zadania projektu:
+
+- Dodawanie/usuwanie klientów
+- Aktualizacja i edycja danych klientów
+- Wystawianie rachunków klientom
+- Dodawanie/usuwanie us³ug
+
+
+3. Tabele bazy danych:
+
+-klient
+-sprzedawca
+-zamówienie
+-szczegó³y zamówienia
+-us³ugi
+-szczegó³y us³ugi
+-faktura
+
+4. Pola tabel bazy danych
+
+-klient:					-zamówienie:
+	Kod klienta					kod zamówienia
+	Nazwisko					kod klienta
+	Imie						kod sprzedawcy
+	Nazwa firmy					data zamówienia
+	ulica i numer domu				data realizacji
+	miasto						termin p³atnoœci
+	kod pocztowy					p³atnoœæ
+	telefon
+	NIP
+
+-Sprzedawca					
+	Kod sprzedawcy					
+	Nazwisko					
+	Imie						
+	Nazwa firmy
+	ulica i numer domu
+	miasto
+	kod pocztowy
+	telefon
+	NIP
+
+-rodzaj us³ugi					
+	kod rodzaj us³ugi				
+	nazwa us³ugi					
+	opis
+
+- us³uga					
+	kod us³ugi					
+	nazwa us³ugi
+	cena jednostkowa
+	cena netto
+	vat
+	kwota vat
+	cena brutto
+	
