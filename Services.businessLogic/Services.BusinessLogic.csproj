@@ -62,6 +62,7 @@
     <Compile Include="Seller.cs">
       <DependentUpon>ServicesContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="SellerManager.cs" />
     <Compile Include="Service.cs">
       <DependentUpon>ServicesContext.tt</DependentUpon>
     </Compile>

@@ -19,6 +19,11 @@ namespace Services
                 defaults: new { controller = "Customers", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
+                name: "Sellers",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Sellers", action = "Index", id = UrlParameter.Optional });
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

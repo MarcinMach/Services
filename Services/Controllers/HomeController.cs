@@ -10,9 +10,8 @@ namespace Services.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {
-            var customers = CustomerManager.Customers;
-            return View(customers);
+        {           
+            return View();
         }
     
         public ActionResult About()
