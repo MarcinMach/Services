@@ -47,6 +47,8 @@ namespace Services.businessLogic
 
 
         #region GetById()
+
+        //TODO: o co chodzi z loadRefereneces ?? 
         public static Customer GetById(int id, bool loadReferences = false)
         {
             try
@@ -73,7 +75,7 @@ namespace Services.businessLogic
                 return null;
             }
         }
-
+        //TODO: co to jest project Id 
         public static Customer GetById(int projectId, int id)
         {
             try
@@ -150,6 +152,10 @@ namespace Services.businessLogic
             }
 
         }
+
+        //TODO: zdecyduje się raz z małej raz z duże piszesz . Piszemy w jeden sposób !
+        // zmienie public z duzej litery 
+        // zmiene prywatne z małej 
         public static Customer Edit(int Id, string name, string surname, string companyName, string street, string city, string code, int phoneNumber, string NIP)
 
         {
@@ -180,6 +186,8 @@ namespace Services.businessLogic
                 return null;
             }
         }
+
+        //TODO: jesli coś usuwasz po 
         public static Customer delete(int projectId)
 
         {
@@ -191,6 +199,8 @@ namespace Services.businessLogic
                     .Where(p => p.Id == projectId)
                     .FirstOrDefault());                   
                     context.Customers.Remove(deletePerson);
+
+                    //TODO: po co Ci ten num ? robisz coś z nim 
                     int num = context.SaveChanges();
 
                     return null;

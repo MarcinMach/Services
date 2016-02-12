@@ -26,3 +26,13 @@ C:\Users\Admin\Desktop\projekty\Services\Services\Services.businessLogic\bin\Deb
 C:\Users\Admin\Desktop\projekty\Services\Services\Services.businessLogic\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Admin\Desktop\projekty\Services\Services\Services.businessLogic\obj\Debug\Services.businessLogic.dll
 C:\Users\Admin\Desktop\projekty\Services\Services\Services.businessLogic\obj\Debug\Services.businessLogic.pdb
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\bin\Debug\Services.businessLogic.dll.config
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\bin\Debug\Services.businessLogic.dll
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\bin\Debug\Services.businessLogic.pdb
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\bin\Debug\EntityFramework.dll
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\bin\Debug\EntityFramework.xml
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\obj\Debug\Services.BusinessLogic.csprojResolveAssemblyReference.cache
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\obj\Debug\Services.businessLogic.dll
+C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\obj\Debug\Services.businessLogic.pdb

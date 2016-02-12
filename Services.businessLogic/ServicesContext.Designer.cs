@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Admin\Desktop\Services\Services\Services.businessLogic\ServicesContext.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\ServicesContext.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
