@@ -10,7 +10,7 @@ using Services.businessLogic;
 
 namespace Services.Controllers
 {
-    public class SellersController : Controller
+    public class SellerController : Controller
     {
         // GET: Sellers
         public ActionResult Index()

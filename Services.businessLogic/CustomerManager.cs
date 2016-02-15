@@ -47,36 +47,9 @@ namespace Services.businessLogic
 
 
         #region GetById()
+     
 
-        //TODO: o co chodzi z loadRefereneces ?? 
-        public static Customer GetById(int id, bool loadReferences = false)
-        {
-            try
-            {
-                using (var context = new ServicesDBEntities())
-                {
-                    if (loadReferences)
-                    {
-                        return context.Customers
-                            .Where(p => p.Id == id)
-                            .FirstOrDefault();
-                    }
-                    else
-                    {
-                        return context.Customers
-                            .Where(p => p.Id == id)
-                            .FirstOrDefault();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-                return null;
-            }
-        }
-        //TODO: co to jest project Id 
-        public static Customer GetById(int projectId, int id)
+        public static Customer GetById(int id)
         {
             try
             {
@@ -84,27 +57,6 @@ namespace Services.businessLogic
                 {
                     var record = context.Customers
                         .Where(p => p.Id == id)
-                        .FirstOrDefault();
-
-
-                    return record;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                return null;
-            }
-        }
-
-        public static Customer GetById(int projectId)
-        {
-            try
-            {
-                using (var context = new ServicesDBEntities())
-                {
-                    var record = context.Customers
-                        .Where(p => p.Id == projectId)
                         .FirstOrDefault();
 
 
@@ -120,12 +72,15 @@ namespace Services.businessLogic
         }
         #endregion
 
+
+
         public static Customer AddNew(int Id, string name, string surname, string companyName, string street, string city, string code, int phoneNumber, string NIP)
         {
             try
             {
                 using (var context = new ServicesDBEntities())
                 {
+
                     var newPerson = new Customer
                     {
                         Id = Id,
@@ -153,9 +108,7 @@ namespace Services.businessLogic
 
         }
 
-        //TODO: zdecyduje się raz z małej raz z duże piszesz . Piszemy w jeden sposób !
-        // zmienie public z duzej litery 
-        // zmiene prywatne z małej 
+     
         public static Customer Edit(int Id, string name, string surname, string companyName, string street, string city, string code, int phoneNumber, string NIP)
 
         {
@@ -167,7 +120,7 @@ namespace Services.businessLogic
                         .Where(p => p.Id == Id)
                         .FirstOrDefault());
 
-                    EditPerson.Name = name;
+                    EditPerson.Name = name;                    
                     EditPerson.Surname = surname;
                     EditPerson.CompanyName = companyName;
                     EditPerson.Street = street;
@@ -187,8 +140,8 @@ namespace Services.businessLogic
             }
         }
 
-        //TODO: jesli coś usuwasz po 
-        public static Customer delete(int projectId)
+       
+        public static Customer Delete(int projectId)
 
         {
             try
@@ -200,8 +153,8 @@ namespace Services.businessLogic
                     .FirstOrDefault());                   
                     context.Customers.Remove(deletePerson);
 
-                    //TODO: po co Ci ten num ? robisz coś z nim 
-                    int num = context.SaveChanges();
+                   
+                    context.SaveChanges();
 
                     return null;
                 }

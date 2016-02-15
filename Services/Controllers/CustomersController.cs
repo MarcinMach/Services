@@ -13,8 +13,7 @@ namespace Services.Controllers
 {
     public class CustomersController : Controller
     {
-        //TODO: POPRAW STRONY ABY KORZYSTAŁY Z GŁÓWNEGO LAYOUT ! TO JEST BARDZO WAŻNE ! PO TO JEST     @RenderBody() W LAYOUT ABY NIE WCZYTYWA CAŁEJ STRONY TYLKO GENEROWA ZAWARTOŚC
-
+      
         // GET: Customers
         public ActionResult Index()
         {
@@ -25,19 +24,9 @@ namespace Services.Controllers
         // GET: Customers/Details/5
         public ActionResult Details(int id)
         {
-            var customer = CustomerManager.Customers;
-            //TODO: 1 == null ??? 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+           
             var selected =  CustomerManager.GetById(id);
-            //TODO: Po co jest to sprawdzane ? 
-            if(customer == null)   
-            {
-             
-                 return HttpNotFound();          
-            }
+         
             return View(selected);
         }
 
@@ -59,20 +48,10 @@ namespace Services.Controllers
         // GET: Customers/Details/5
         public ActionResult Edit(int id)
         {
-            var customer = CustomerManager.Customers;
-            //TODO: int  może być nulle ? 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+  
             var selected = CustomerManager.GetById(id);
 
-            //TODO: Po co jest to sprawdzane ? 
-            if (customer == null)
-            {
-
-                return HttpNotFound();
-            }
+           
             return View(selected);
         }
 
@@ -88,45 +67,25 @@ namespace Services.Controllers
             return RedirectToAction("Index");
 
         }
-        // TODO:
-        // może być nulle ale domyślnie niech będzie false ?? czyli zawsze jest false ? czy może byc nullem ? 
-        public ActionResult Delete(int id, bool? saveChangesError = false)
+       
+        public ActionResult Delete(int id, bool? saveChangesError )
         {
-            var customer = CustomerManager.Customers;
-           //TODO: int  może być nulle ? 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            var selected = CustomerManager.GetById(id);
             if (saveChangesError.GetValueOrDefault())
             {
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
-            var selected = CustomerManager.GetById(id);
-            if (customer == null)
-            {
-
-                return HttpNotFound();
-            }
+                
             return View(selected);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)
-        { //TODO: int  może być nulle ? 
-            if (Id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-           // TODO: o co chodzi z tym zwracaniem null 
-            var selected = CustomerManager.delete(Id);
-
-            if (selected == null)
-            {
-                // zawsze tutaj lądujesz 
-                return HttpNotFound();
-            }
-            return View("Index");
+        { 
+            var selected = CustomerManager.Delete(Id);                 
+            return View("Applay");
+            
+           
         }
 
     }

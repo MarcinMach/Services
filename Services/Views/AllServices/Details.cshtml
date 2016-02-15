@@ -1,0 +1,80 @@
+﻿@model Services.businessLogic.Service
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Service</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ServiceName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UnitPrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NetPrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NetPrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.VAT)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VAT)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.VATAmount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VATAmount)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PretaxPrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PretaxPrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.FaVatPosition)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FaVatPosition)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

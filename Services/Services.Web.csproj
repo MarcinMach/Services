@@ -96,9 +96,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -158,9 +158,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AllServicesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\SellersController.cs" />
+    <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -289,14 +290,18 @@
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-    <Content Include="Views\Seller\Delete.cshtml" />
     <Content Include="Views\Seller\Details.cshtml" />
-    <Content Include="Views\Seller\Edit.cshtml" />
     <Content Include="Views\Seller\Index.cshtml" />
+    <Content Include="Views\Customers\Applay.cshtml" />
+    <Content Include="Views\AllServices\Create.cshtml" />
+    <Content Include="Views\AllServices\Delete.cshtml" />
+    <Content Include="Views\AllServices\Details.cshtml" />
+    <Content Include="Views\AllServices\Edit.cshtml" />
+    <Content Include="Views\AllServices\Index.cshtml" />
+    <Content Include="Views\AllServices\Applay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Customers\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

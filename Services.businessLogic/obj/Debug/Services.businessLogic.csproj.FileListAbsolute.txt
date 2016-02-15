@@ -36,3 +36,4 @@ C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\b
 C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\obj\Debug\Services.BusinessLogic.csprojResolveAssemblyReference.cache
 C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\obj\Debug\Services.businessLogic.dll
 C:\Users\kuba\Desktop\Projekty\services Marcin\Services\Services.businessLogic\obj\Debug\Services.businessLogic.pdb
+C:\Users\Admin\Desktop\projekty\Services\Services\Services.businessLogic\obj\Debug\Services.BusinessLogic.csprojResolveAssemblyReference.cache
