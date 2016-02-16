@@ -8,7 +8,7 @@ namespace Services.businessLogic
 {
     public partial class CustomerManager
     {
-
+     
         #region Projects
         private static List<Customer> _Customers = new List<Customer>();
         public static List<Customer> Customers
@@ -116,6 +116,8 @@ namespace Services.businessLogic
             {
                 using(var context = new ServicesDBEntities())
                 {
+                    //TODO: zmiene prywatne piszemy z małej litery 
+                    //EditPEerson jest zmienną jaką ? 
                     var EditPerson = (context.Customers
                         .Where(p => p.Id == Id)
                         .FirstOrDefault());
@@ -140,7 +142,7 @@ namespace Services.businessLogic
             }
         }
 
-       
+       //TODO: popraw sobie foramtowanie kodu straszne odstępy robisz nie potrzebnie 
         public static Customer Delete(int projectId)
 
         {

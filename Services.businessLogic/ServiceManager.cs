@@ -23,7 +23,7 @@ namespace Services.businessLogic
             }
         }
         #endregion
-
+        //TODO: regiony masz po łączone
         #region GetList()
 
         public static List<Service> GetList()
