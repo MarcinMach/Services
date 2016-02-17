@@ -7,37 +7,40 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Services.businessLogic;
+using Services.Models;
 
 namespace Services.Controllers
 {
     public class AllServicesController : Controller
     {
-        
-        // GET: AllServices
         public ActionResult Index()
         {
             var allservices = ServiceManager.GetList();
             return View(allservices);
         }
 
-
-
         public ActionResult Create()
         {
-            // w view podajemy nazwy widoku -> nie jest błąd brak poadania ale czytelniejsze jest jak podasz 
+           
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int Id, string servicename, float unitPrice, float netPrice, int VAT )
+        public ActionResult Create(ServicesModel servicesModel)
         {
-            // TODO: mamy jakaś walidacje danych ? 
-            var service = ServiceManager.AddNew(Id, servicename, unitPrice, netPrice, VAT);
-            return View(service);
+            if (ModelState.IsValid)
+            {
+                var Newservice = ServiceManager.AddNew(servicesModel.Id, servicesModel.ServiceName, servicesModel.UnitPrice,
+                                                servicesModel.NetPrice, servicesModel.Vat);
+
+                return View(Newservice);
+            }
+            else
+            {
+                return View();
+            }
         }
-
-
-
 
         public ActionResult Delete(int id, bool? saveChangesError)
         {
@@ -55,8 +58,6 @@ namespace Services.Controllers
         {
             var selected = ServiceManager.Delete(Id);
             return View("Applay");
-
-
         }
 
         public ActionResult Details(int id)
@@ -65,6 +66,32 @@ namespace Services.Controllers
             var selected = ServiceManager.GetById(id);
 
             return View(selected);
+        }
+
+        public ActionResult Edit(int id)
+        {
+
+            var selected = ServiceManager.GetById(id);
+
+
+            return View(selected);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ServicesModel servicesModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var EditService = ServiceManager.Edit(servicesModel.Id, servicesModel.ServiceName, servicesModel.UnitPrice,
+                                                      servicesModel.NetPrice, servicesModel.Vat);
+
+                return View(EditService);
+            }
+            else
+            {
+                return View();
+            }
         }
 
     }

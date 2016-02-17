@@ -15,10 +15,10 @@ namespace Services.businessLogic
     public partial class ServiceType
     {
         public int Id { get; set; }
-        public int OrderId { get; set; }
-        public int ServiceId { get; set; }
+        public int OrderID { get; set; }
+        public int ServiceID { get; set; }
         public string ServiceTypeName { get; set; }
-        public int Amount { get; set; }
+        public Nullable<int> Amount { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Service Service { get; set; }

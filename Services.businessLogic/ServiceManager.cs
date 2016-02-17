@@ -8,8 +8,8 @@ namespace Services.businessLogic
 {
     public partial class ServiceManager
     {
-        #region Projects
         private static List<Service> _Service = new List<Service>();
+
         public static List<Service> Service
         {
             get
@@ -22,9 +22,6 @@ namespace Services.businessLogic
                 return _Service;
             }
         }
-        #endregion
-
-        #region GetList()
 
         public static List<Service> GetList()
         {
@@ -41,11 +38,6 @@ namespace Services.businessLogic
                 return new List<Service>();
             }
         }
-
-
-
-        #region GetById()
-
 
         public static Service GetById(int id)
         {
@@ -68,12 +60,8 @@ namespace Services.businessLogic
                 return null;
             }
         }
-        #endregion
 
-
-
-        #region
-        public static Service AddNew(int Id, string serviceName, float unitPrice, float netPrice, int VAT) {
+        public static Service AddNew(int Id, string serviceName, float unitPrice, float netPrice, int Vat) {
             try
             {
                 using (var context = new ServicesDBEntities())
@@ -81,13 +69,13 @@ namespace Services.businessLogic
 
                     var newservice = new Service
                     {
-                        Id = Id,
+
                         ServiceName = serviceName,
                         UnitPrice = unitPrice,
                         NetPrice = netPrice,
-                        VAT = VAT,
-                        VATAmount = ((VAT * unitPrice) / 100),
-                        PretaxPrice = (unitPrice + (VAT * unitPrice) / 100),
+                        Vat = Vat,
+                        VatAmount = ((Vat * unitPrice) / 100),
+                        PretaxPrice = (unitPrice + (Vat * unitPrice) / 100),
 
                     };
                     context.Services.Add(newservice);
@@ -95,15 +83,12 @@ namespace Services.businessLogic
 
                     return newservice;
                 }
-                #endregion
             }
             catch (Exception ex)
             {
                 return null;
             }
         }
-
-
 
         public static Customer Delete(int projectId)
 
@@ -130,7 +115,6 @@ namespace Services.businessLogic
             }
         }
 
-
         public static Service Edit(int Id, string serviceName, float unitPrice, float netPrice, int VAT)
 
         {
@@ -138,19 +122,17 @@ namespace Services.businessLogic
             {
                 using (var context = new ServicesDBEntities())
                 {
-                    var EditService = (context.Services
+                    var editService = (context.Services
                         .Where(p => p.Id == Id)
                         .FirstOrDefault());
 
-                    EditService.ServiceName = serviceName;
-                    EditService.UnitPrice = unitPrice;
-                    EditService.NetPrice = netPrice;
-                    EditService.VAT = VAT;
+                    editService.ServiceName = serviceName;
+                    editService.UnitPrice = unitPrice;
+                    editService.NetPrice = netPrice;
+                    editService.Vat = VAT;
            
-                    
-
-                    int num = context.SaveChanges();
-                    return EditService;
+                    context.SaveChanges();
+                    return editService;
 
                 };
             }
@@ -159,6 +141,6 @@ namespace Services.businessLogic
                 return null;
             }
         }
+
     }
 }
-#endregion

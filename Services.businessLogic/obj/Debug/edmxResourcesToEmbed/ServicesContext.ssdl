@@ -4,21 +4,21 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="CompanyName" Type="nvarchar(max)" />
-    <Property Name="Street" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Street" Type="nchar" MaxLength="10" Nullable="false" />
     <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Code" Type="int" Nullable="false" />
     <Property Name="PhoneNumber" Type="int" />
-    <Property Name="NIP" Type="nchar" MaxLength="10" />
+    <Property Name="NIP" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Orders">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
     <Property Name="SellerId" Type="int" Nullable="false" />
     <Property Name="OrderDate" Type="date" />
@@ -42,36 +42,26 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="ServiceName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="UnitPrice" Type="float" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceName" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="UnitPrice" Type="float" />
     <Property Name="NetPrice" Type="float" Nullable="false" />
-    <Property Name="VAT" Type="int" Nullable="false" />
-    <Property Name="VATAmount" Type="float" Nullable="false" />
+    <Property Name="Vat" Type="int" Nullable="false" />
+    <Property Name="VatAmount" Type="float" Nullable="false" />
     <Property Name="PretaxPrice" Type="float" Nullable="false" />
-    <Property Name="FaVatPosition" Type="int" Nullable="false" />
+    <Property Name="FaVatPosition" Type="int" />
   </EntityType>
-  <EntityType Name="ServiceTypes">
+  <EntityType Name="ServiceType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="OrderId" Type="int" Nullable="false" />
-    <Property Name="ServiceId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ServiceID" Type="int" Nullable="false" />
     <Property Name="ServiceTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="int" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <Association Name="FK_Orders_Customers1">
+  <Association Name="FK_Orders_Customers">
     <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
     <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
@@ -83,27 +73,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ServiceTypes_Orders1">
+  <Association Name="FK_ServiceType_Orders">
     <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
-    <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="*" />
+    <End Role="ServiceType" Type="Self.ServiceType" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Orders">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ServiceTypes">
-        <PropertyRef Name="OrderId" />
+      <Dependent Role="ServiceType">
+        <PropertyRef Name="OrderID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ServiceTypes_Services">
+  <Association Name="FK_ServiceType_Services">
     <End Role="Services" Type="Self.Services" Multiplicity="1" />
-    <End Role="ServiceTypes" Type="Self.ServiceTypes" Multiplicity="*" />
+    <End Role="ServiceType" Type="Self.ServiceType" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Services">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ServiceTypes">
-        <PropertyRef Name="ServiceId" />
+      <Dependent Role="ServiceType">
+        <PropertyRef Name="ServiceID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -112,19 +102,18 @@
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Orders_Customers1" Association="Self.FK_Orders_Customers1">
+    <EntitySet Name="ServiceType" EntityType="Self.ServiceType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
       <End Role="Customers" EntitySet="Customers" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
-    <AssociationSet Name="FK_ServiceTypes_Orders1" Association="Self.FK_ServiceTypes_Orders1">
+    <AssociationSet Name="FK_ServiceType_Orders" Association="Self.FK_ServiceType_Orders">
       <End Role="Orders" EntitySet="Orders" />
-      <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+      <End Role="ServiceType" EntitySet="ServiceType" />
     </AssociationSet>
-    <AssociationSet Name="FK_ServiceTypes_Services" Association="Self.FK_ServiceTypes_Services">
+    <AssociationSet Name="FK_ServiceType_Services" Association="Self.FK_ServiceType_Services">
       <End Role="Services" EntitySet="Services" />
-      <End Role="ServiceTypes" EntitySet="ServiceTypes" />
+      <End Role="ServiceType" EntitySet="ServiceType" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

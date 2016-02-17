@@ -159,14 +159,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AllServicesController.cs" />
+    <Compile Include="Controllers\BuyController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SellerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\ServicesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +301,7 @@
     <Content Include="Views\AllServices\Edit.cshtml" />
     <Content Include="Views\AllServices\Index.cshtml" />
     <Content Include="Views\AllServices\Applay.cshtml" />
+    <Content Include="Views\Buy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,12 +10,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
+@Html.ValidationSummary()
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
@@ -31,10 +26,10 @@
                 @Html.DisplayNameFor(model => model.NetPrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VAT)
+                @Html.DisplayNameFor(model => model.Vat)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VATAmount)
+                @Html.DisplayNameFor(model => model.VatAmount)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PretaxPrice)
@@ -55,10 +50,10 @@
                 @Html.DisplayFor(modelItem => item.NetPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VAT)
+                @Html.DisplayFor(modelItem => item.Vat)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VATAmount)
+                @Html.DisplayFor(modelItem => item.VatAmount)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PretaxPrice)
@@ -70,8 +65,6 @@
                 @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
-    }
-    
+    }    
     </table>
-</body>
-</html>
+

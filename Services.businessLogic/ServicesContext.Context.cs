@@ -30,6 +30,5 @@ namespace Services.businessLogic
         public virtual DbSet<Seller> Sellers { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<ServiceType> ServiceTypes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

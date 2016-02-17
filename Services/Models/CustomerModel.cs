@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Services.Models
 {
-    public class Customer : Person
+    public class CustomerModel : PersonModel
     {
     }
 }

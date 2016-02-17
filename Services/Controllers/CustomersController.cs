@@ -8,20 +8,18 @@ using System.Web;
 using System.Web.Mvc;
 using Services.businessLogic;
 using System.Data.Entity.Infrastructure;
+using Services.Models;
 
 namespace Services.Controllers
 {
     public class CustomersController : Controller
-    {
-      
-        // GET: Customers
+    {      
         public ActionResult Index()
         {
             var customers = CustomerManager.GetList();
             return View(customers);
         }
 
-        // GET: Customers/Details/5
         public ActionResult Details(int id)
         {
            
@@ -29,23 +27,28 @@ namespace Services.Controllers
          
             return View(selected);
         }
-
  
         public ActionResult Create()
         {
-            // w view podajemy nazwy widoku -> nie jest błąd brak poadania ale czytelniejsze jest jak podasz 
             return View();
         }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(int Id, string name, string surname, string companyName, string street, string city, string code, int phoneNumber, string NIP)
+        public ActionResult Create( CustomerModel customerModel)
         {
-            // TODO: mamy jakaś walidacje danych ? 
-           var customer = CustomerManager.AddNew(Id,name,surname,companyName,street,city,code,phoneNumber,NIP);
-            return View(customer);
+            if (ModelState.IsValid)
+            {
+                var NewCustomer = CustomerManager.AddNew(customerModel.Name, customerModel.Surname, customerModel.CompanyName,
+                    customerModel.Street, customerModel.City, customerModel.Code, customerModel.PhoneNumber, customerModel.NIP);
+
+                return View(NewCustomer);
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        // GET: Customers/Details/5
         public ActionResult Edit(int id)
         {
   
@@ -57,17 +60,22 @@ namespace Services.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int Id, string name, string surname, string companyName, string street, string city, string code, int phoneNumber, string NIP)
+        public ActionResult EditPost(CustomerModel customerModel)
         {
-            if (Id == null)
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var customer = CustomerManager.Edit(Id, name, surname, companyName, street, city, code, phoneNumber, NIP);
-            return RedirectToAction("Index");
+                var NewCustomer = CustomerManager.Edit(customerModel.Id, customerModel.Name, customerModel.Surname, customerModel.CompanyName,
+                 customerModel.Street, customerModel.City, customerModel.Code, customerModel.PhoneNumber, customerModel.NIP);
 
+                return View(NewCustomer);
+            }
+            else
+            {
+                return View();
+            }
         }
-       
+
+
         public ActionResult Delete(int id, bool? saveChangesError )
         {
             var selected = CustomerManager.GetById(id);
@@ -78,6 +86,7 @@ namespace Services.Controllers
                 
             return View(selected);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)
@@ -87,6 +96,5 @@ namespace Services.Controllers
             
            
         }
-
     }
 }

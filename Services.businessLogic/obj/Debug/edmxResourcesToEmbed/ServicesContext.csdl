@@ -1,43 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ServicesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ServicesDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="ServicesModel.Customer" />
+    <EntitySet Name="Orders" EntityType="ServicesModel.Order" />
+    <EntitySet Name="Sellers" EntityType="ServicesModel.Seller" />
+    <EntitySet Name="Services" EntityType="ServicesModel.Service" />
+    <EntitySet Name="ServiceTypes" EntityType="ServicesModel.ServiceType" />
+    <AssociationSet Name="FK_Orders_Customers" Association="ServicesModel.FK_Orders_Customers">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceType_Orders" Association="ServicesModel.FK_ServiceType_Orders">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="ServiceType" EntitySet="ServiceTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceType_Services" Association="ServicesModel.FK_ServiceType_Services">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="ServiceType" EntitySet="ServiceTypes" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Customer">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Street" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="Int32" Nullable="false" />
     <Property Name="PhoneNumber" Type="Int32" />
-    <Property Name="NIP" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers1" FromRole="Customers" ToRole="Orders" />
+    <Property Name="NIP" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="ServicesModel.FK_Orders_Customers" FromRole="Customer" ToRole="Order" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CustomerId" Type="Int32" Nullable="false" />
     <Property Name="SellerId" Type="Int32" Nullable="false" />
     <Property Name="OrderDate" Type="DateTime" Precision="0" />
     <Property Name="PaymentDate" Type="DateTime" Precision="0" />
-    <NavigationProperty Name="Customer" Relationship="Self.FK_Orders_Customers1" FromRole="Orders" ToRole="Customers" />
-    <NavigationProperty Name="ServiceTypes" Relationship="Self.FK_ServiceTypes_Orders1" FromRole="Orders" ToRole="ServiceTypes" />
+    <NavigationProperty Name="Customer" Relationship="ServicesModel.FK_Orders_Customers" FromRole="Order" ToRole="Customer" />
+    <NavigationProperty Name="ServiceTypes" Relationship="ServicesModel.FK_ServiceType_Orders" FromRole="Order" ToRole="ServiceType" />
   </EntityType>
   <EntityType Name="Seller">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Street" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PhoneNumber" Type="Int32" />
     <Property Name="NIP" Type="Int32" />
   </EntityType>
@@ -45,92 +64,62 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="ServiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="UnitPrice" Type="Double" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="UnitPrice" Type="Double" />
     <Property Name="NetPrice" Type="Double" Nullable="false" />
-    <Property Name="VAT" Type="Int32" Nullable="false" />
-    <Property Name="VATAmount" Type="Double" Nullable="false" />
+    <Property Name="Vat" Type="Int32" Nullable="false" />
+    <Property Name="VatAmount" Type="Double" Nullable="false" />
     <Property Name="PretaxPrice" Type="Double" Nullable="false" />
-    <Property Name="FaVatPosition" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="ServiceTypes" Relationship="Self.FK_ServiceTypes_Services" FromRole="Services" ToRole="ServiceTypes" />
+    <Property Name="FaVatPosition" Type="Int32" />
+    <NavigationProperty Name="ServiceTypes" Relationship="ServicesModel.FK_ServiceType_Services" FromRole="Service" ToRole="ServiceType" />
   </EntityType>
   <EntityType Name="ServiceType">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="OrderId" Type="Int32" Nullable="false" />
-    <Property Name="ServiceId" Type="Int32" Nullable="false" />
-    <Property Name="ServiceTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Amount" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Order" Relationship="Self.FK_ServiceTypes_Orders1" FromRole="ServiceTypes" ToRole="Orders" />
-    <NavigationProperty Name="Service" Relationship="Self.FK_ServiceTypes_Services" FromRole="ServiceTypes" ToRole="Services" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ServiceID" Type="Int32" Nullable="false" />
+    <Property Name="ServiceTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Amount" Type="Int32" />
+    <NavigationProperty Name="Order" Relationship="ServicesModel.FK_ServiceType_Orders" FromRole="ServiceType" ToRole="Order" />
+    <NavigationProperty Name="Service" Relationship="ServicesModel.FK_ServiceType_Services" FromRole="ServiceType" ToRole="Service" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
-  <Association Name="FK_Orders_Customers1">
-    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
-    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+  <Association Name="FK_Orders_Customers">
+    <End Type="ServicesModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="ServicesModel.Order" Role="Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Customers">
+      <Principal Role="Customer">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Orders">
+      <Dependent Role="Order">
         <PropertyRef Name="CustomerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ServiceTypes_Orders1">
-    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
-    <End Role="ServiceTypes" Type="Self.ServiceType" Multiplicity="*" />
+  <Association Name="FK_ServiceType_Orders">
+    <End Type="ServicesModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="ServicesModel.ServiceType" Role="ServiceType" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Orders">
+      <Principal Role="Order">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ServiceTypes">
-        <PropertyRef Name="OrderId" />
+      <Dependent Role="ServiceType">
+        <PropertyRef Name="OrderID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ServiceTypes_Services">
-    <End Role="Services" Type="Self.Service" Multiplicity="1" />
-    <End Role="ServiceTypes" Type="Self.ServiceType" Multiplicity="*" />
+  <Association Name="FK_ServiceType_Services">
+    <End Type="ServicesModel.Service" Role="Service" Multiplicity="1" />
+    <End Type="ServicesModel.ServiceType" Role="ServiceType" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Services">
+      <Principal Role="Service">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ServiceTypes">
-        <PropertyRef Name="ServiceId" />
+      <Dependent Role="ServiceType">
+        <PropertyRef Name="ServiceID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ServicesDBEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Customers" EntityType="Self.Customer" />
-    <EntitySet Name="Orders" EntityType="Self.Order" />
-    <EntitySet Name="Sellers" EntityType="Self.Seller" />
-    <EntitySet Name="Services" EntityType="Self.Service" />
-    <EntitySet Name="ServiceTypes" EntityType="Self.ServiceType" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-    <AssociationSet Name="FK_Orders_Customers1" Association="Self.FK_Orders_Customers1">
-      <End Role="Customers" EntitySet="Customers" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ServiceTypes_Orders1" Association="Self.FK_ServiceTypes_Orders1">
-      <End Role="Orders" EntitySet="Orders" />
-      <End Role="ServiceTypes" EntitySet="ServiceTypes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ServiceTypes_Services" Association="Self.FK_ServiceTypes_Services">
-      <End Role="Services" EntitySet="Services" />
-      <End Role="ServiceTypes" EntitySet="ServiceTypes" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

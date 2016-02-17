@@ -22,12 +22,12 @@ namespace Services.businessLogic
     
         public int Id { get; set; }
         public string ServiceName { get; set; }
-        public double UnitPrice { get; set; }
+        public Nullable<double> UnitPrice { get; set; }
         public double NetPrice { get; set; }
-        public int VAT { get; set; }
-        public double VATAmount { get; set; }
+        public int Vat { get; set; }
+        public double VatAmount { get; set; }
         public double PretaxPrice { get; set; }
-        public int FaVatPosition { get; set; }
+        public Nullable<int> FaVatPosition { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceType> ServiceTypes { get; set; }

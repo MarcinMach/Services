@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuyManager.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>ServicesContext.tt</DependentUpon>
     </Compile>
@@ -84,9 +85,6 @@
       <DependentUpon>ServicesContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="ServiceType.cs">
-      <DependentUpon>ServicesContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
       <DependentUpon>ServicesContext.tt</DependentUpon>
     </Compile>
   </ItemGroup>

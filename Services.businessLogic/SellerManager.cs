@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace Services.businessLogic
 {
     public partial class SellerManager
-    {
-
-        #region Projects
+    {       
         private static List<Seller> _Seller = new List<Seller>();
+
         public static List<Seller> Seller
         {
             get
@@ -23,9 +22,6 @@ namespace Services.businessLogic
                 return _Seller;
             }
         }
-        #endregion
-
-        #region GetList()
 
         public static List<Seller> GetList()
         {
@@ -42,7 +38,8 @@ namespace Services.businessLogic
                 return new List<Seller>();
             }
         }
+
     }
 }
 
-        #endregion
+    

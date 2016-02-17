@@ -19,16 +19,16 @@ namespace Services.businessLogic
         {
             this.Orders = new HashSet<Order>();
         }
-    
+     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string CompanyName { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
-        public string Code { get; set; }
+        public int Code { get; set; }
         public Nullable<int> PhoneNumber { get; set; }
-        public string NIP { get; set; }
+        public int NIP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }

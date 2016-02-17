@@ -12,7 +12,6 @@ namespace Services.Controllers
 {
     public class SellerController : Controller
     {
-        // GET: Sellers
         public ActionResult Index()
         {
             var seller = SellerManager.GetList();
