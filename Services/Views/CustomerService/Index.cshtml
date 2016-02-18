@@ -1,0 +1,15 @@
+﻿@model Services.Models.CustomerServiceModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<form action="@Url.Action("Commit")"  method="post">
+    <p>
+        @Html.LabelFor(model => model.customers, "Name")
+        @Html.DropDownList("Id", @Model.customers)
+        <input type="submit" value="OK" class="btn btn-default" />
+
+    </p>
+</form>
+
