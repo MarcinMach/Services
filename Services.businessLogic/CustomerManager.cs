@@ -71,7 +71,6 @@ namespace Services.businessLogic
                     var newPerson = new Customer
                     {
 
-
                         Name = name,
                         Surname = surname,
                         CompanyName = companyName,
@@ -93,7 +92,6 @@ namespace Services.businessLogic
             {
                 return null;
             }
-
         }
 
         public static Customer Edit(int Id, string name, string surname, string companyName, string street, string city, int code, int? phoneNumber, int NIP)
@@ -101,7 +99,7 @@ namespace Services.businessLogic
             try
             {
                 using (var context = new ServicesDBEntities())
-                {
+                {                    
                     var editPerson = (context.Customers
                         .Where(p => p.Id == Id)
                         .FirstOrDefault());
@@ -137,7 +135,6 @@ namespace Services.businessLogic
                     .FirstOrDefault());
                     context.Customers.Remove(deletePerson);
 
-
                     context.SaveChanges();
 
                     return null;
@@ -146,6 +143,27 @@ namespace Services.businessLogic
             }
             catch (Exception ex)
             {
+                return null;
+            }
+
+        }
+        public static Customer GetCustomerName(string name)
+        {
+            try
+            {
+                using (var context = new ServicesDBEntities())
+                {
+                    var record = context.Customers
+                        .Where(p => p.Name == name)
+                        .FirstOrDefault();
+
+                    return record;
+
+                }
+            }
+            catch (Exception ex)
+            {
+
                 return null;
             }
         }

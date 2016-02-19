@@ -21,8 +21,7 @@ namespace Services.Controllers
         }
 
         public ActionResult Details(int id)
-        {
-           
+        {           
             var selected =  CustomerManager.GetById(id);
          
             return View(selected);
@@ -53,8 +52,7 @@ namespace Services.Controllers
         {
   
             var selected = CustomerManager.GetById(id);
-
-           
+          
             return View(selected);
         }
 
@@ -75,7 +73,6 @@ namespace Services.Controllers
             }
         }
 
-
         public ActionResult Delete(int id, bool? saveChangesError )
         {
             var selected = CustomerManager.GetById(id);
@@ -91,10 +88,9 @@ namespace Services.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)
         { 
-            var selected = CustomerManager.Delete(Id);                 
-            return View("Applay");
-            
-           
+            var selected = CustomerManager.Delete(Id);   
+                          
+            return View("Applay");          
         }
     }
 }

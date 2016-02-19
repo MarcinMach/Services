@@ -49,14 +49,11 @@ namespace Services.businessLogic
                         .Where(p => p.Id == id)
                         .FirstOrDefault();
 
-
                     return record;
-
                 }
             }
             catch (Exception ex)
             {
-
                 return null;
             }
         }
@@ -66,7 +63,6 @@ namespace Services.businessLogic
             {
                 using (var context = new ServicesDBEntities())
                 {
-
                     var newservice = new Service
                     {
 
@@ -102,12 +98,9 @@ namespace Services.businessLogic
                     .FirstOrDefault());
                     context.Services.Remove(deleteServive);
 
-
                     context.SaveChanges();
-
                     return null;
                 }
-
             }
             catch (Exception ex)
             {
@@ -141,6 +134,7 @@ namespace Services.businessLogic
                 return null;
             }
         }
+    
 
     }
 }

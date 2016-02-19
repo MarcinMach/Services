@@ -9,7 +9,6 @@ namespace Services.businessLogic
 {
     public partial class BuyManager
     {
-
         private void DropDownList(object selectCustomer = null)
         {
          

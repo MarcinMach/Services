@@ -10,18 +10,11 @@ namespace Services.Controllers
 {
     public class CustomerServiceController : Controller
     {
-        public ActionResult Index(int id)
+        public ActionResult Index()
         {
-            int nevid;
-            var customerservice = new CustomerServiceModel();
-            customerservice.customers = new SelectList(CustomerManager.Customers, "Id", "Name");
-            CustomerManager.GetById(id);
-            nevid = id;
-
-            return View(customerservice);
-            
+            return View();            
         }
-        [HttpPost]
+        
         public ActionResult Commit(int id)
         {
             var selected = CustomerManager.GetById(id);
@@ -33,5 +26,13 @@ namespace Services.Controllers
             // var selected = CustomerManager.GetById(id);
             return View();//selected);
         }
+        [HttpPost]
+        public JsonResult Getlist(int id)
+        {
+            var customerservice = new CustomerServiceModel();
+            customerservice.customers = new SelectList(CustomerManager.Customers, "Id", "Name");
+            return Json(customerservice, JsonRequestBehavior.AllowGet);
+        }
+        
     }
 }

@@ -70,9 +70,7 @@ namespace Services.Controllers
 
         public ActionResult Edit(int id)
         {
-
             var selected = ServiceManager.GetById(id);
-
 
             return View(selected);
         }
