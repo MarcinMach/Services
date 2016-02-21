@@ -8,9 +8,11 @@ namespace Services.Models
 {
     public class CustomerServiceModel
     {
-        public IEnumerable<SelectListItem> customers { get; set; }
-        public IEnumerable<SelectListItem> service { get; set; }
+        public IEnumerable<SelectListItem> Customers { get; set; }
+        public IEnumerable<SelectListItem> Service { get; set; }
 
+        public int SelectedCustomer { get; set; }
 
+        public int SelectedService { get; set; }
     }
 }

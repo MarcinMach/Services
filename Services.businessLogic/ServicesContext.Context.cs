@@ -18,6 +18,7 @@ namespace Services.businessLogic
         public ServicesDBEntities()
             : base("name=ServicesDBEntities")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

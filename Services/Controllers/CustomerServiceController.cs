@@ -12,26 +12,26 @@ namespace Services.Controllers
     {
         public ActionResult Index()
         {
-            return View();            
+          
+            var customerservice = new CustomerServiceModel();
+            customerservice.Customers = new SelectList(CustomerManager.Customers, "Id", "Name");
+            return View("Index", customerservice);           
+
         }
         
-        public ActionResult Commit(int id)
+        [HttpPost]
+        public ActionResult GenerateInvoice(CustomerServiceModel model)
         {
-            var selected = CustomerManager.GetById(id);
-            return View(selected);           
+            //w modelu mam id kontrahenta i usługę mogę utworzyć fakturę 
+            // faktura ma być wyświetlona w html na początku ! 
+       
+            return View();
         }
 
-        public ActionResult Commit()
+        public JsonResult GetCustomerById(int customerId)
         {
-            // var selected = CustomerManager.GetById(id);
-            return View();//selected);
-        }
-        [HttpPost]
-        public JsonResult Getlist(int id)
-        {
-            var customerservice = new CustomerServiceModel();
-            customerservice.customers = new SelectList(CustomerManager.Customers, "Id", "Name");
-            return Json(customerservice, JsonRequestBehavior.AllowGet);
+            var customer = CustomerManager.GetById(customerId);
+            return Json(customer, JsonRequestBehavior.AllowGet);
         }
         
     }

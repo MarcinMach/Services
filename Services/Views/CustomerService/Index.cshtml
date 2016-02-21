@@ -1,16 +1,105 @@
 ﻿@model Services.Models.CustomerServiceModel
 
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
 
-}
-
-
-<form action="@Url.Action("Commit")"  method="post">
-@Html.DropDownListFor(m => m.customers, (SelectList) )
-
+<form action="@Url.Action("GenerateInvoice")" method="post">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>Customer</h4>
+                <hr />
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Nazwa kontrahenta: </label>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.SelectedCustomer, @Model.Customers, new { @id = "selectedCustomer" })
+                        <button type="button" id="selectCustomerButton">Wybierz kontrahenta</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Imię: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="customerName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Nazwisko: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="customerSurname" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Firma: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="customerCompany" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Miasto: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="customerCity" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Ulica: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="customerStreet" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h4>Services</h4>
+                <hr />
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Nazwa usługi: </label>
+                    <div class="col-md-10">
+                        @* Podobnie wczytaj usługi tak jak wyżej kontrahenta *@
+                        @Html.DropDownListFor(m => m.SelectedService, @Model.Customers, new { @id = "selectedCustomer" })
+                        <button type="button" id="selectCustomerButton">Wybierz usługę</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Nazwa usługi: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="serviceName" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <input type="submit" value="wyślij"/>
+            </div>
+        </div>
+    </div>
 </form>
 
 
 
- 
+@section scripts
+{
+    <script type="text/javascript">
+     $(document).ready(function(){
+    
+         $("#selectCustomerButton").click(function () {
+             var customerId = $("#selectedCustomer").val();
+             alert("Id kontrahenta: " + customerId);
+
+             $.ajax({
+                 url: '@Url.Action("GetCustomerById")'+"?customerId="+customerId,
+                 type: "GET",
+                 success: function (json) {
+                     $("#customerName").val(json.Name);
+                     $("#customerSurname").val(json.Surname);
+                     $("#customerCompany").val(json.CompanyName);
+                     $("#customerCity").val(json.City);
+                     $("#customerStreet").val(json.Street);
+                     console.log(json);
+                 },
+                 error: function (xhr, status, errorThrown) {
+                     alert(xhr);
+                     alert(status);
+                 }
+             });
+         });
+     })
+    </script>
+}
