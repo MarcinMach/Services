@@ -17,34 +17,70 @@
                 <div class="form-group">
                     <label class="control-label col-md-2"> Imię: </label>
                     <div class="col-md-10">
-                        <input type="text" id="customerName" />
+                        <input type="text" id="name" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2"> Nazwisko: </label>
                     <div class="col-md-10">
-                        <input type="text" id="customerSurname" />
+                        <input type="text" id="surname" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2"> Firma: </label>
                     <div class="col-md-10">
-                        <input type="text" id="customerCompany" />
+                        <input type="text" id="companyName" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2"> Miasto: </label>
                     <div class="col-md-10">
-                        <input type="text" id="customerCity" />
+                        <input type="text" id="city" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2"> Ulica: </label>
                     <div class="col-md-10">
-                        <input type="text" id="customerStreet" />
+                        <input type="text" id="street" />
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                ServiceName
+                            </th>
+                            <th>
+                                UnitPrice
+                            </th>
+                            <th>
+                                NetPrice
+                            </th>
+                            <th>
+                                VAT
+                            </th>
+                            <th>
+                                VATAmount
+                            </th>
+                            <th>
+                                PretaxPrive
+                            </th>
+                        </tr>
+                        <tr id="customertable">
+                     
+                        </tr>
+                       
+                    </table>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <input type="submit" value="Send" class="btn btn-default" />
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-6">
                 <h4>Services</h4>
                 <hr />
@@ -52,8 +88,8 @@
                     <label class="control-label col-md-2"> Nazwa usługi: </label>
                     <div class="col-md-10">
                         @* Podobnie wczytaj usługi tak jak wyżej kontrahenta *@
-                        @Html.DropDownListFor(m => m.SelectedService, @Model.Customers, new { @id = "selectedCustomer" })
-                        <button type="button" id="selectCustomerButton">Wybierz usługę</button>
+                        @Html.DropDownListFor(m => m.SelectedService, @Model.Service, new { @id = "selectedService" })
+                        <button type="button" id="selectServiceButton">Wybierz usługę</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -62,14 +98,47 @@
                         <input type="text" id="serviceName" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Cena jendostkowa: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="unitPrice" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Cena netto: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="netPrice" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Vat: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="vat" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Wartość Vat: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="vatAmount" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Cena brutto: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="pretaxPrice" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <button type="button" id="addServiceButton">Dodaj usługę</button>
+                    </div>
+                </div>
             </div>
+
+            
         </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <input type="submit" value="wyślij"/>
-            </div>
         </div>
-    </div>
+
 </form>
 
 
@@ -77,29 +146,74 @@
 @section scripts
 {
     <script type="text/javascript">
-     $(document).ready(function(){
-    
-         $("#selectCustomerButton").click(function () {
-             var customerId = $("#selectedCustomer").val();
-             alert("Id kontrahenta: " + customerId);
+        $(document).ready(function () {
 
-             $.ajax({
-                 url: '@Url.Action("GetCustomerById")'+"?customerId="+customerId,
-                 type: "GET",
-                 success: function (json) {
-                     $("#customerName").val(json.Name);
-                     $("#customerSurname").val(json.Surname);
-                     $("#customerCompany").val(json.CompanyName);
-                     $("#customerCity").val(json.City);
-                     $("#customerStreet").val(json.Street);
-                     console.log(json);
-                 },
-                 error: function (xhr, status, errorThrown) {
-                     alert(xhr);
-                     alert(status);
-                 }
-             });
-         });
-     })
-    </script>
+            function CreateService(serviceName, unitPrice, netPrice, vat, vatAmount, pretaxPrice) {
+                this.serviceName = $("#serviceName").val();
+                this.unitPrice = $("#unitPrice").val();
+                this.netPrice = $("#netPrice").val(),
+                this.vat = $("#vat").val(),
+                this.vatAmount = $("#vatAmount").val(),
+                this.pretaxPrice = $("#pretaxPrice").val();
+            }
+
+            var ServiceTable = [];
+
+            $("#addServiceButton").click(function () {
+                var serviceId = $("#selectedService").val();
+                var createservice = new CreateService();                              
+                ServiceTable[length+1] = createservice;
+                createservice =
+                    "<td> " + customertable.pretaxPrice;
+            });
+        
+
+
+            $("#selectCustomerButton").click(function () {
+                var customerId = $("#selectedCustomer").val();
+
+                $.ajax({
+                    url: '@Url.Action("GetCustomerById")'+"?customerId="+customerId,
+                    type: "GET",
+                    success: function (json) {
+                        $("#name").val(json.name);
+                        $("#surname").val(json.surname);
+                        $("#companyName").val(json.companyName);
+                        $("#city").val(json.city);
+                        $("#street").val(json.street);
+                        console.log(json);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        alert(xhr);
+                        alert(status);
+                    }
+                });
+            });
+            $("#selectServiceButton").click(function () {
+                var serviceId = $("#selectedService").val();
+
+                $.ajax({
+                    url: '@Url.Action("GetServiceById")' + "?serviceId=" + serviceId,
+                    type: "GET",
+                    success: function (json) {
+                        $("#serviceName").val(json.serviceName);
+                        $("#unitPrice").val(json.unitPrice);
+                        $("#netPrice").val(json.netPrice);
+                        $("#vat").val(json.vat);
+                        $("#vatAmount").val(json.vatAmount);
+                        $("#pretaxPrice").val(json.pretaxPrice);
+                        console.log(json);
+
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        alert(xhr);
+                        alert(status);
+                    }
+                });
+            });
+            
+
+     
+       
+        }) </script>
 }

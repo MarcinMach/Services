@@ -15,6 +15,7 @@ namespace Services.Controllers
           
             var customerservice = new CustomerServiceModel();
             customerservice.Customers = new SelectList(CustomerManager.Customers, "Id", "Name");
+            customerservice.Service = new SelectList(ServiceManager.Service, "Id", "ServiceName");
             return View("Index", customerservice);           
 
         }
@@ -31,8 +32,55 @@ namespace Services.Controllers
         public JsonResult GetCustomerById(int customerId)
         {
             var customer = CustomerManager.GetById(customerId);
-            return Json(customer, JsonRequestBehavior.AllowGet);
+            var data = new
+            {
+                name = customer.Name,
+                surname = customer.Surname,
+                companyName = customer.CompanyName,
+                city = customer.City,
+                street = customer.Street,
+            };
+
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
-        
-    }
+
+        public JsonResult AddService(int customerId)
+        {
+            var service = ServiceManager.GetById(customerId);
+            var data = new
+            {
+                serviceName = service.ServiceName,
+                unitPrice = service.UnitPrice,
+                netPrice = service.NetPrice,
+                vat = service.Vat,
+                vatAmount = service.VatAmount,
+                pretaxPrice = service.PretaxPrice,
+            };
+
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetServiceById(int serviceId)
+        {
+            var service = ServiceManager.GetById(serviceId);
+            var data = new
+            {
+                serviceName = service.ServiceName,
+                unitPrice = service.UnitPrice,
+                netPrice = service.NetPrice,
+                vat = service.Vat,
+                vatAmount = service.VatAmount,
+                pretaxPrice = service.PretaxPrice,
+
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Invoice()
+        {
+
+            return View();
+        }
+   }
 }
