@@ -162,9 +162,10 @@
             $("#addServiceButton").click(function () {
                 var serviceId = $("#selectedService").val();
                 var createservice = new CreateService();                              
-                ServiceTable[length+1] = createservice;
-                createservice =
-                    "<td> " + customertable.pretaxPrice;
+                ServiceTable[ServiceTable.length]=createservice;
+                var htmla =
+                "<td> " + createservice.serviceName + "</td><td> " + createservice.unitPrice + "</td><td> " + createservice.netPrice + "</td><td> " + createservice.vat + "</td><td> " + createservice.vatAmount + "</td><td> " + createservice.pretaxPrice + "</td>"
+                $("#customertable").html(htmla);
             });
         
 
