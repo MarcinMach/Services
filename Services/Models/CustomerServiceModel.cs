@@ -11,6 +11,8 @@ namespace Services.Models
         public IEnumerable<SelectListItem> Customers { get; set; }
         public IEnumerable<SelectListItem> Service { get; set; }
 
+        public List<int> SelectedServices { get; set; }
+
         public int SelectedCustomer { get; set; }
 
         public int SelectedService { get; set; }

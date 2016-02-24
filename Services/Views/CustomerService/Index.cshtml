@@ -46,30 +46,31 @@
                 </div>
                 <div class="col-lg-8">
                     <table class="table">
-                        <tr>
-                            <th>
-                                ServiceName
-                            </th>
-                            <th>
-                                UnitPrice
-                            </th>
-                            <th>
-                                NetPrice
-                            </th>
-                            <th>
-                                VAT
-                            </th>
-                            <th>
-                                VATAmount
-                            </th>
-                            <th>
-                                PretaxPrive
-                            </th>
-                        </tr>
-                        <tr id="customertable">
-                     
-                        </tr>
-                       
+                        <thead>
+                            <tr>
+                                <th>
+                                    ServiceName
+                                </th>
+                                <th>
+                                    UnitPrice
+                                </th>
+                                <th>
+                                    NetPrice
+                                </th>
+                                <th>
+                                    VAT
+                                </th>
+                                <th>
+                                    VATAmount
+                                </th>
+                                <th>
+                                    PretaxPrive
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="customertable">
+
+                        </tbody>
                     </table>
 
 
@@ -145,16 +146,25 @@
 
 @section scripts
 {
-    <script type="text/javascript">
-        $(document).ready(function () {
 
-            function CreateService(serviceName, unitPrice, netPrice, vat, vatAmount, pretaxPrice) {
+    <script type="text/javascript">
+        //W jaki sposób zapisać do kontrolera? 
+        // Mozna na kilka sposobów 
+        // 1. Pierwszy klika w przycisk i przenosi mnie na akcje z formularza (musimy mieć odpowiednio zrobione inputy)  - już działa ta wersja 
+
+        // 2. Drugi za pomocą ajaxa przesyłam dane czyli id kontrahenta oraz id usług  - zastanów sie w jaki sposób można to zrobić ?? 
+
+        $(document).ready(function () {
+            //Po co te zmiene przesyłasz  serviceName, unitPrice, netPrice, vat, vatAmount, pretaxPrice???
+            function CreateService( serviceName, unitPrice, netPrice, vat, vatAmount, pretaxPrice) {
                 this.serviceName = $("#serviceName").val();
                 this.unitPrice = $("#unitPrice").val();
                 this.netPrice = $("#netPrice").val(),
                 this.vat = $("#vat").val(),
                 this.vatAmount = $("#vatAmount").val(),
                 this.pretaxPrice = $("#pretaxPrice").val();
+                this.pretaxPrice = $("#pretaxPrice").val();
+                this.id = $("#selectedService").val();
             }
 
             var ServiceTable = [];
@@ -162,9 +172,24 @@
             $("#addServiceButton").click(function () {
                 var serviceId = $("#selectedService").val();
                 var createservice = new CreateService();                              
-                ServiceTable[ServiceTable.length]=createservice;
-                var htmla =
-                "<td> " + createservice.serviceName + "</td><td> " + createservice.unitPrice + "</td><td> " + createservice.netPrice + "</td><td> " + createservice.vat + "</td><td> " + createservice.vatAmount + "</td><td> " + createservice.pretaxPrice + "</td>"
+                var length = ServiceTable.length;
+                ServiceTable[length] = createservice;
+                // noi gitara super idziemy dalej 
+                $("#customertable").html();
+                var htmla;
+                for (var i = 0; i < length; i++) {
+                    alert(createservice.id);
+                    htmla +=
+                        "<tr>" +
+                            "<td> " + createservice.serviceName + "<input type='hidden' name='SelectedServices[" + i + "]' value='"+createservice.id +"' /></td>" +
+                            "<td> " + createservice.unitPrice + "</td>"+
+                            "<td> " + createservice.netPrice + "</td>"+
+                            "<td> " + createservice.vat + "</td>"+
+                            "<td> " + createservice.vatAmount + "</td>" +
+                            "<td> " + createservice.pretaxPrice + "</td>"+
+                        "</tr>"
+                }
+               
                 $("#customertable").html(htmla);
             });
         
