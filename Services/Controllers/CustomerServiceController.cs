@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Services.businessLogic;
 using Services.Models;
 
+
 namespace Services.Controllers
 {
     public class CustomerServiceController : Controller
@@ -19,14 +20,38 @@ namespace Services.Controllers
             return View("Index", customerservice);           
 
         }
-        
-        [HttpPost]
+
+ 
         public ActionResult GenerateInvoice(CustomerServiceModel model)
         {
-            //w modelu mam id kontrahenta i usługę mogę utworzyć fakturę 
-            // faktura ma być wyświetlona w html na początku ! 
-       
-            return View();
+            var invoice = new InvoiceModel();
+            var service = ServiceManager.GetById(model.SelectedService);
+            var customer = CustomerManager.GetById(model.SelectedCustomer);
+
+            invoice.Name = customer.Name;
+            invoice.Surname = customer.Surname;
+            invoice.City = customer.City;
+            invoice.CompanyName = customer.CompanyName;
+            invoice.Code = customer.Code;
+            invoice.NIP = customer.NIP;
+            invoice.Street = customer.Street;
+            invoice.PhoneNumber = customer.PhoneNumber;
+            invoice.ServiceName = service.ServiceName;
+            invoice.Vat = service.Vat;
+            invoice.NetPrice = service.NetPrice;
+            invoice.VatAmount = service.VatAmount;
+            invoice.PretaxPrice = service.PretaxPrice;
+        /*    invoice.SellerName = customer.Name;
+            invoice.SellerSurname = customer.Surname;
+            invoice.SellerCity = customer.City;
+            invoice.SellerCompanyName = customer.CompanyName;
+            invoice.SellerCode = seller.Code;
+            invoice.SellerNIP = seller.NIP;
+            invoice.SellerStreet = seller.Street;
+            invoice.SellerPhoneNumber = seller.PhoneNumber;  */
+
+
+            return View("Invoice", invoice);
         }
 
         public JsonResult GetCustomerById(int customerId)
@@ -77,10 +102,6 @@ namespace Services.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Invoice()
-        {
 
-            return View();
-        }
    }
 }

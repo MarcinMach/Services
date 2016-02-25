@@ -1,7 +1,7 @@
 ﻿@model Services.Models.CustomerServiceModel
 
 
-<form action="@Url.Action("GenerateInvoice")" method="post">
+<form action="@Url.Action("GenerateInvoice")" method="post" name="formularz">
     <div class="form-horizontal">
         <div class="row">
             <div class="col-lg-6">
@@ -76,7 +76,7 @@
 
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <input type="submit" value="Send" class="btn btn-default" />
+                            <button type="submit" id="Send">Utwórz Fakturę</button>
                         </div>
                     </div>
                 </div>
@@ -148,15 +148,14 @@
 {
 
     <script type="text/javascript">
-        //W jaki sposób zapisać do kontrolera? 
-        // Mozna na kilka sposobów 
-        // 1. Pierwszy klika w przycisk i przenosi mnie na akcje z formularza (musimy mieć odpowiednio zrobione inputy)  - już działa ta wersja 
+        //W jaki sposób zapisać do kontrolera?
+        // Mozna na kilka sposobów
+        // 1. Pierwszy klika w przycisk i przenosi mnie na akcje z formularza (musimy mieć odpowiednio zrobione inputy)  - już działa ta wersja
 
-        // 2. Drugi za pomocą ajaxa przesyłam dane czyli id kontrahenta oraz id usług  - zastanów sie w jaki sposób można to zrobić ?? 
+        // 2. Drugi za pomocą ajaxa przesyłam dane czyli id kontrahenta oraz id usług  - zastanów sie w jaki sposób można to zrobić ??
 
         $(document).ready(function () {
-            //Po co te zmiene przesyłasz  serviceName, unitPrice, netPrice, vat, vatAmount, pretaxPrice???
-            function CreateService( serviceName, unitPrice, netPrice, vat, vatAmount, pretaxPrice) {
+                      function CreateService() {
                 this.serviceName = $("#serviceName").val();
                 this.unitPrice = $("#unitPrice").val();
                 this.netPrice = $("#netPrice").val(),
@@ -171,28 +170,27 @@
 
             $("#addServiceButton").click(function () {
                 var serviceId = $("#selectedService").val();
-                var createservice = new CreateService();                              
+                var createservice = new CreateService();
                 var length = ServiceTable.length;
                 ServiceTable[length] = createservice;
-                // noi gitara super idziemy dalej 
+                // noi gitara super idziemy dalej
                 $("#customertable").html();
                 var htmla;
-                for (var i = 0; i < length; i++) {
-                    alert(createservice.id);
+                for (var i = 0; i <= length; i++) {
                     htmla +=
                         "<tr>" +
-                            "<td> " + createservice.serviceName + "<input type='hidden' name='SelectedServices[" + i + "]' value='"+createservice.id +"' /></td>" +
-                            "<td> " + createservice.unitPrice + "</td>"+
-                            "<td> " + createservice.netPrice + "</td>"+
-                            "<td> " + createservice.vat + "</td>"+
-                            "<td> " + createservice.vatAmount + "</td>" +
-                            "<td> " + createservice.pretaxPrice + "</td>"+
+                            "<td> " + ServiceTable[i].serviceName + "<input type='hidden' name='SelectedServices[" + i + "]' value='" + createservice.id + "' /></td>" +
+                            "<td> " + ServiceTable[i].unitPrice + "</td>" +
+                            "<td> " + ServiceTable[i].netPrice + "</td>" +
+                            "<td> " + ServiceTable[i].vat + "</td>" +
+                            "<td> " + ServiceTable[i].vatAmount + "</td>" +
+                            "<td> " + ServiceTable[i].pretaxPrice + "</td>" +
                         "</tr>"
                 }
-               
+
                 $("#customertable").html(htmla);
             });
-        
+
 
 
             $("#selectCustomerButton").click(function () {
@@ -237,9 +235,24 @@
                     }
                 });
             });
-            
 
-     
-       
+            $("#Send").click(function () {
+                console.log($("form[name=formularz]").serialize());
+                $.ajax({
+                    url: '@Url.Action("GenerateInvoice")',
+                    type: "GET",
+                  
+                    cache: false,
+                    data: $("form[name=formularz]").serialize(),
+                    success: function (data) {
+                        $("name").get(data.name),
+                        $("selectServiceButton").get(data.id)
+                        $("addServiceButton").get(data.id)
+                    }}
+             )})
+
+
+
+
         }) </script>
 }
