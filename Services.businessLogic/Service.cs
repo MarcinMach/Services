@@ -28,7 +28,8 @@ namespace Services.businessLogic
         public double VatAmount { get; set; }
         public double PretaxPrice { get; set; }
         public Nullable<int> FaVatPosition { get; set; }
-    
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceType> ServiceTypes { get; set; }
     }

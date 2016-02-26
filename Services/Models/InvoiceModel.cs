@@ -53,10 +53,10 @@ namespace Services.Models
 
         public string SellerCity { get; set; }
 
-        public int SellerCode { get; set; }
+        public string SellerCode { get; set; }
 
         public Nullable<int> SellerPhoneNumber { get; set; }
 
-        public int SellerNIP { get; set; }
+        public Nullable<int>SellerNIP { get; set; }
     }
 }

@@ -16,102 +16,135 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-xs-6 text-right">
-                <h1>INVOICE</h1>
-                <h1><small>Invoice #001</small></h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>From: <a href="#">@Html.DisplayFor(Model => Model.Name) @Html.DisplayFor(Model => Model.Surname) </a></h4>
+        <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <h1 contenteditable>INVOICE</h1>
                     </div>
-                    <div class="panel-body">
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 text-right" contenteditable>
+                                <strong>Invoice number</strong>
+                                <span>18372918</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 text-right" contenteditable>
+                                <strong>Invoice date</strong>
+                                <span>2016-01-01</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <h4><p contenteditable id="label-contractor">SELLER</p></h4>
+                            </div>
+                            <div class="col-xs-3">
+                                <h4><p contenteditable id="label-contractee">CUSTOMER</p></h4>
+                            </div>
+                            <div class="col-xs-4 text-right">
+                                <strong contenteditable>Due date</strong>
+                                <span contenteditable>2016-01-01</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                <!-- Address -->
+                <div class="row">
+                    <div class="col-xs-5" id="label-mycompany">
+                        <address contenteditable>
+                            <strong>@Html.DisplayFor(Model => Model.SellerName) @Html.DisplayFor(Model => Model.SellerSurname).</strong><br>
+                            <strong>Company:    @Html.DisplayFor(Model => Model.SellerCompanyName) <br> </strong>
+                                    Adress:     @Html.DisplayFor(Model => Model.SellerCity) <br>
+                                                @Html.DisplayFor(Model => Model.SellerStreet),
+                                                @Html.DisplayFor(Model => Model.SellerCode) <br />
+                                    Phone:      @Html.DisplayFor(Model => Model.SellerPhoneNumber) <br>
+                                    NIP:        @Html.DisplayFor(Model => Model.SellerNIP) <br>
+                        </address>
+                    </div>
+                    <div class="col-xs-5">
+                        <address contenteditable id="label-yourcompany">
+                            <strong>@Html.DisplayFor(Model => Model.Name) @Html.DisplayFor(Model => Model.Surname).</strong><br>
+                            <strong>Company:    @Html.DisplayFor(Model => Model.CompanyName) <br></strong>
+                                    Addres:     @Html.DisplayFor(Model => Model.City)<br />
+                                                @Html.DisplayFor(Model => Model.Street),
+                                                @Html.DisplayFor(Model => Model.Code)    <br>
+                                    Phone:      @Html.DisplayFor(Model => Model.PhoneNumber) <br>
+                                    NIP:        @Html.DisplayFor(Model => Model.NIP) <br>
+                        </address>
                         <p>
-                          CITY:        @Html.DisplayFor(Model => Model.City)<br>
-                          STREET:      @Html.DisplayFor(Model => Model.Street)<br>
-                          CODE:        @Html.DisplayFor(Model => Model.Code)<br>
-                          PHONENUMER:  @Html.DisplayFor(Model => Model.PhoneNumber)<br>
-                          NIP:         @Html.DisplayFor(Model => Model.NIP)<br>
                         </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-5 col-xs-offset-2 text-right">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>To : <a href="#">@Html.DisplayFor(Model => Model.Name)</a></h4>
-                    </div>
-                    <div class="panel-body">
-                        <p>
-                            Address <br>
-                            details <br>
-                            more <br>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- / end client details section -->
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>
-                        <h4>Service</h4>
-                    </th>
-                    <th>
-                        <h4>Description</h4>
-                    </th>
-                    <th>
-                        <h4>Hrs/Qty</h4>
-                    </th>
-                    <th>
-                        <h4>Rate/Price</h4>
-                    </th>
-                    <th>
-                        <h4>Sub Total</h4>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Article</td>
-                    <td><a href="#">Title of your article here</a></td>
-                    <td class="text-right">-</td>
-                    <td class="text-right">$200.00</td>
-                    <td class="text-right">$200.00</td>
-                </tr>
-                <tr>
-                    <td>Template Design</td>
-                    <td><a href="#">Details of project here</a></td>
-                    <td class="text-right">10</td>
-                    <td class="text-right">75.00</td>
-                    <td class="text-right">$750.00</td>
-                </tr>
-                <tr>
-                    <td>Development</td>
-                    <td><a href="#">WordPress Blogging theme</a></td>
-                    <td class="text-right">5</td>
-                    <td class="text-right">50.00</td>
-                    <td class="text-right">$250.00</td>
-                </tr>
-            </tbody>
-        </table>
-       
-        <div class="row">
-            
-            <div class="col-xs-7">
-                <div class="span7">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4>Contact Details</h4>
+
+             
+                <!-- / end client details section -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                <h4>Service</h4>
+                            </th>
+                            <th>
+                                <h4>UnitPrice</h4>
+                            </th>
+                            <th>
+                                <h4>NetPrice</h4>
+                            </th>
+                            <th>
+                                <h4>Vat</h4>
+                            </th>
+                            <th>
+                                <h4>VatAmount</h4>
+                            </th>
+                            <th>
+                                <h4>PretaxPrice</h4>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Article</td>
+                            <td><a href="#">Title of your article here</a></td>
+                            <td class="text-right">-</td>
+                            <td class="text-right">$200.00</td>
+                            <td class="text-right">$200.00</td>
+                        </tr>
+                        <tr>
+                            <td>Template Design</td>
+                            <td><a href="#">Details of project here</a></td>
+                            <td class="text-right">10</td>
+                            <td class="text-right">75.00</td>
+                            <td class="text-right">$750.00</td>
+                        </tr>
+                        <tr>
+                            <td>Development</td>
+                            <td><a href="#">WordPress Blogging theme</a></td>
+                            <td class="text-right">5</td>
+                            <td class="text-right">50.00</td>
+                            <td class="text-right">$250.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+
+                    <div class="col-xs-7">
+                        <div class="span7">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4>Contact Details</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</body>
+        </body>
 </html>}

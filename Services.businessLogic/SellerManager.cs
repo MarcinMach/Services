@@ -38,6 +38,27 @@ namespace Services.businessLogic
                 return new List<Seller>();
             }
         }
+        public static Seller GetById(int id)
+        {
+            try
+            {
+                using (var context = new ServicesDBEntities())
+                {
+                    var record = context.Sellers
+                        .Where(p => p.Id == id)
+                        .FirstOrDefault();
+
+
+                    return record;
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
 
     }
 }

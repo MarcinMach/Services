@@ -27,6 +27,8 @@ namespace Services.Controllers
             var invoice = new InvoiceModel();
             var service = ServiceManager.GetById(model.SelectedService);
             var customer = CustomerManager.GetById(model.SelectedCustomer);
+            var seller = SellerManager.GetById(1);
+            var services = ServiceManager.GetServiceByIds(model.SelectedServices);
 
             invoice.Name = customer.Name;
             invoice.Surname = customer.Surname;
@@ -34,6 +36,7 @@ namespace Services.Controllers
             invoice.CompanyName = customer.CompanyName;
             invoice.Code = customer.Code;
             invoice.NIP = customer.NIP;
+            invoice.CompanyName = customer.CompanyName;
             invoice.Street = customer.Street;
             invoice.PhoneNumber = customer.PhoneNumber;
             invoice.ServiceName = service.ServiceName;
@@ -41,15 +44,19 @@ namespace Services.Controllers
             invoice.NetPrice = service.NetPrice;
             invoice.VatAmount = service.VatAmount;
             invoice.PretaxPrice = service.PretaxPrice;
-        /*    invoice.SellerName = customer.Name;
-            invoice.SellerSurname = customer.Surname;
-            invoice.SellerCity = customer.City;
+            invoice.SellerName = seller.Name;
+            invoice.SellerSurname = seller.Surname;
+            invoice.SellerCity = seller.City;
             invoice.SellerCompanyName = customer.CompanyName;
             invoice.SellerCode = seller.Code;
             invoice.SellerNIP = seller.NIP;
             invoice.SellerStreet = seller.Street;
-            invoice.SellerPhoneNumber = seller.PhoneNumber;  */
-
+            invoice.SellerPhoneNumber = seller.PhoneNumber;
+            invoice.SellerCompanyName = seller.CompanyName;
+            //TODO nie wiem jak przekazac tablicę produktów którą pobrałem do obiektu
+            //services i przekazać ją do modelu invoice.AllServices
+          
+            
 
             return View("Invoice", invoice);
         }
@@ -100,6 +107,11 @@ namespace Services.Controllers
 
             };
             return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Invoice()
+        {
+            return View();
         }
 
 

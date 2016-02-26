@@ -57,6 +57,29 @@ namespace Services.businessLogic
                 return null;
             }
         }
+        //TODO funkcja zwracająca listę produktów przez id
+        public static List<Service> GetServiceByIds(List<int> servicesId)
+        {
+            try
+            {
+                using (var context = new ServicesDBEntities())
+                {
+                
+
+                    var services = from c in context.Services
+                                   where servicesId.Contains(c.Id)
+                                   select c;
+                    var Allservices = services.ToList();
+
+                    return Allservices;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         public static Service AddNew(int Id, string serviceName, float unitPrice, float netPrice, int Vat) {
             try
