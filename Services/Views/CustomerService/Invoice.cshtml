@@ -4,19 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
- @using (Html.BeginForm()) { 
+ @using (Html.BeginForm())
+ {
 
 
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Sample Invoice</title>
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
-
-<body>
-    <div class="container">
-        <body>
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-right">
@@ -36,7 +33,9 @@
                         <div class="row">
                             <div class="col-xs-12 text-right" contenteditable>
                                 <strong>Invoice date</strong>
-                                <span>2016-01-01</span>
+                                <span id="test1">
+
+                                </span>
                             </div>
                         </div>
 
@@ -47,15 +46,9 @@
                             <div class="col-xs-3">
                                 <h4><p contenteditable id="label-contractee">CUSTOMER</p></h4>
                             </div>
-                            <div class="col-xs-4 text-right">
-                                <strong contenteditable>Due date</strong>
-                                <span contenteditable>2016-01-01</span>
-                            </div>
                         </div>
                     </div>
                 </div>
-                    
-                <!-- Address -->
                 <div class="row">
                     <div class="col-xs-5" id="label-mycompany">
                         <address contenteditable>
@@ -82,69 +75,65 @@
                         </p>
                     </div>
                 </div>
-
-             
-                <!-- / end client details section -->
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>
-                                <h4>Service</h4>
+                                ServiceName
                             </th>
                             <th>
-                                <h4>UnitPrice</h4>
+                                UnitPrice
                             </th>
                             <th>
-                                <h4>NetPrice</h4>
+                                NetPrice
                             </th>
                             <th>
-                                <h4>Vat</h4>
+                                Vat
                             </th>
                             <th>
-                                <h4>VatAmount</h4>
+                                VatAmount
                             </th>
                             <th>
-                                <h4>PretaxPrice</h4>
-                            </th>
+                                PretaxPrice
+                            </th>                           
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Article</td>
-                            <td><a href="#">Title of your article here</a></td>
-                            <td class="text-right">-</td>
-                            <td class="text-right">$200.00</td>
-                            <td class="text-right">$200.00</td>
-                        </tr>
-                        <tr>
-                            <td>Template Design</td>
-                            <td><a href="#">Details of project here</a></td>
-                            <td class="text-right">10</td>
-                            <td class="text-right">75.00</td>
-                            <td class="text-right">$750.00</td>
-                        </tr>
-                        <tr>
-                            <td>Development</td>
-                            <td><a href="#">WordPress Blogging theme</a></td>
-                            <td class="text-right">5</td>
-                            <td class="text-right">50.00</td>
-                            <td class="text-right">$250.00</td>
-                        </tr>
+                          @for (int i = 0; i < Model.AllServices.Count; i++)
+                          {
+                              <tr>                           
+                            <th>
+                                @Html.DisplayFor(model => model.ServiceName)
+                           </th>
+                            <th>
+                                @Html.DisplayFor(model => model.UnitPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayFor(model => model.NetPrice)
+                            </th>
+                            <th>
+                                @Html.DisplayFor(model => model.Vat)
+                            </th>
+                            <th>
+                                @Html.DisplayFor(model => model.VatAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayFor(model => model.PretaxPrice)
+                            </th>
+                            </tr>
+                          }
                     </tbody>
                 </table>
-
-                <div class="row">
-
-                    <div class="col-xs-7">
-                        <div class="span7">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h4>Contact Details</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </body>
-</html>}
+ }
+@section scripts
+{
+
+<script type="text/javascript">
+
+    var czas = new Date();
+    var element = document.getElementById('test1');
+    element.innerHTML += " " + czas.getDate() + "." + (czas.getMonth()+1) + "." + czas.getFullYear();
+
+</script>
+}

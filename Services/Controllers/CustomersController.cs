@@ -14,7 +14,7 @@ namespace Services.Controllers
 {
     public class CustomersController : Controller
     {      
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             var customers = CustomerManager.GetList();
             return View(customers);

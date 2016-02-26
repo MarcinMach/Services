@@ -11,6 +11,8 @@ namespace Services.Controllers
 {
     public class CustomerServiceController : Controller
     {
+        
+
         public ActionResult Index()
         {
           
@@ -28,8 +30,8 @@ namespace Services.Controllers
             var service = ServiceManager.GetById(model.SelectedService);
             var customer = CustomerManager.GetById(model.SelectedCustomer);
             var seller = SellerManager.GetById(1);
-            var services = ServiceManager.GetServiceByIds(model.SelectedServices);
-
+            var services = ServiceManager.GetServiceByIds(model.SelectedServices);           
+                     
             invoice.Name = customer.Name;
             invoice.Surname = customer.Surname;
             invoice.City = customer.City;
@@ -53,11 +55,8 @@ namespace Services.Controllers
             invoice.SellerStreet = seller.Street;
             invoice.SellerPhoneNumber = seller.PhoneNumber;
             invoice.SellerCompanyName = seller.CompanyName;
-            //TODO nie wiem jak przekazac tablicę produktów którą pobrałem do obiektu
-            //services i przekazać ją do modelu invoice.AllServices
-          
-            
-
+            invoice.AllServices = services.ToList();
+             
             return View("Invoice", invoice);
         }
 
@@ -89,7 +88,6 @@ namespace Services.Controllers
                 vatAmount = service.VatAmount,
                 pretaxPrice = service.PretaxPrice,
             };
-
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }

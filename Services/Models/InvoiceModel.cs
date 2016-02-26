@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Services.businessLogic;
 
 namespace Services.Models
 {
@@ -39,7 +40,7 @@ namespace Services.Models
 
         public int NIP { get; set; }
 
-        public List<int> AllServices { get; set; }
+        public List<Service> AllServices { get; set; }
 
         public int SellerId { get; set; }
 
@@ -58,5 +59,7 @@ namespace Services.Models
         public Nullable<int> SellerPhoneNumber { get; set; }
 
         public Nullable<int>SellerNIP { get; set; }
+
+        public double Amount { get; set; }
     }
 }

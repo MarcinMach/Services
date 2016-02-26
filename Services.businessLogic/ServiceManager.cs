@@ -64,14 +64,22 @@ namespace Services.businessLogic
             {
                 using (var context = new ServicesDBEntities())
                 {
-                
+
 
                     var services = from c in context.Services
                                    where servicesId.Contains(c.Id)
                                    select c;
                     var Allservices = services.ToList();
+                    var sortedCustomers = new List<Service>();
+                    foreach (int id in servicesId)
+                    {
+                        var service = Allservices.Find(x => x.Id == id);
+                        if (service != null)
+                            sortedCustomers.Add(service);
+                    }
+                    return sortedCustomers;
 
-                    return Allservices;
+
 
                 }
             }
@@ -81,7 +89,8 @@ namespace Services.businessLogic
             }
         }
 
-        public static Service AddNew(int Id, string serviceName, float unitPrice, float netPrice, int Vat) {
+        public static Service AddNew(int Id, string serviceName, float unitPrice, float netPrice, int Vat)
+        {
             try
             {
                 using (var context = new ServicesDBEntities())
@@ -146,7 +155,7 @@ namespace Services.businessLogic
                     editService.UnitPrice = unitPrice;
                     editService.NetPrice = netPrice;
                     editService.Vat = VAT;
-           
+
                     context.SaveChanges();
                     return editService;
 
@@ -157,7 +166,7 @@ namespace Services.businessLogic
                 return null;
             }
         }
-    
 
+      
     }
 }
