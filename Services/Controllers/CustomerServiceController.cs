@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using Services.businessLogic;
 using Services.Models;
+using RazorPDF;
+using Rotativa;
 
 
 namespace Services.Controllers
@@ -23,15 +25,20 @@ namespace Services.Controllers
 
         }
 
- 
+        public ActionResult Invoice()
+        {
+            return View();
+        }
+
+
         public ActionResult GenerateInvoice(CustomerServiceModel model)
         {
             var invoice = new InvoiceModel();
             var service = ServiceManager.GetById(model.SelectedService);
             var customer = CustomerManager.GetById(model.SelectedCustomer);
             var seller = SellerManager.GetById(1);
-            var services = ServiceManager.GetServiceByIds(model.SelectedServices);           
-                     
+            var services = ServiceManager.GetServiceByIds(model.SelectedServices);
+
             invoice.Name = customer.Name;
             invoice.Surname = customer.Surname;
             invoice.City = customer.City;
@@ -44,6 +51,7 @@ namespace Services.Controllers
             invoice.ServiceName = service.ServiceName;
             invoice.Vat = service.Vat;
             invoice.NetPrice = service.NetPrice;
+            invoice.UnitPrice = service.UnitPrice;
             invoice.VatAmount = service.VatAmount;
             invoice.PretaxPrice = service.PretaxPrice;
             invoice.SellerName = seller.Name;
@@ -56,9 +64,16 @@ namespace Services.Controllers
             invoice.SellerPhoneNumber = seller.PhoneNumber;
             invoice.SellerCompanyName = seller.CompanyName;
             invoice.AllServices = services.ToList();
-             
+
             return View("Invoice", invoice);
         }
+            public ActionResult Zobacz(CustomerServiceModel model)
+              {
+                   var invoice = new InvoiceModel();
+
+                   return new Rotativa.ViewAsPdf("Invoice", invoice);
+               }
+
 
         public JsonResult GetCustomerById(int customerId)
         {
@@ -106,12 +121,5 @@ namespace Services.Controllers
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult Invoice()
-        {
-            return View();
-        }
-
-
    }
 }

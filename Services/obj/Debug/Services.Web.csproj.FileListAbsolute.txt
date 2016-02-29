@@ -293,3 +293,6 @@ C:\Users\Admin\Desktop\projekty\Services\Services\Services\bin\Newtonsoft.Json.x
 C:\Users\Admin\Desktop\projekty\Services\Services\Services\obj\Debug\Services.Web.csprojResolveAssemblyReference.cache
 C:\Users\Admin\Desktop\projekty\Services\Services\Services\obj\Debug\Services.dll
 C:\Users\Admin\Desktop\projekty\Services\Services\Services\obj\Debug\Services.pdb
+C:\Users\Admin\Desktop\projekty\Services\Services\Services\bin\itextsharp.dll
+C:\Users\Admin\Desktop\projekty\Services\Services\Services\bin\RazorPDF.dll
+C:\Users\Admin\Desktop\projekty\Services\Services\Services\bin\Rotativa.dll

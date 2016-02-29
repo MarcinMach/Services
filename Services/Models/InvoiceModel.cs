@@ -12,7 +12,7 @@ namespace Services.Models
        
         public string ServiceName { get; set; }
        
-        public float UnitPrice { get; set; }
+        public Nullable<double> UnitPrice { get; set; }
        
         public double NetPrice { get; set; }
 

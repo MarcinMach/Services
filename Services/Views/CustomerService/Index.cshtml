@@ -142,8 +142,6 @@
 
 </form>
 
-
-
 @section scripts
 {
 
@@ -162,18 +160,19 @@
                 this.vat = $("#vat").val(),
                 this.vatAmount = $("#vatAmount").val(),
                 this.pretaxPrice = $("#pretaxPrice").val();
-                this.pretaxPrice = $("#pretaxPrice").val();
+
                 this.id = $("#selectedService").val();
+               
                 
             }
 
-            var ServiceTable = [];
+                      var ServiceTable = [];
 
             $("#addServiceButton").click(function () {
                 var serviceId = $("#selectedService").val();
                 var createservice = new CreateService();
                 var length = ServiceTable.length;
-                ServiceTable[length] = createservice;
+                ServiceTable[length] = createservice;                
                 // noi gitara super idziemy dalej
                 $("#customertable").html();
                 var htmla;
@@ -185,8 +184,9 @@
                             "<td> " + ServiceTable[i].netPrice + "</td>" +
                             "<td> " + ServiceTable[i].vat + "</td>" +
                             "<td> " + ServiceTable[i].vatAmount + "</td>" +
-                            "<td> " + ServiceTable[i].pretaxPrice + "</td>" +
+                            "<td> " + ServiceTable[i].pretaxPrice + "</td>" +                           
                         "</tr>"
+                    
                 }
 
                 $("#customertable").html(htmla);
