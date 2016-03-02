@@ -38,6 +38,7 @@ namespace Services.businessLogic
                 return new List<Seller>();
             }
         }
+
         public static Seller GetById(int id)
         {
             try

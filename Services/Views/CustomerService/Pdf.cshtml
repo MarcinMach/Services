@@ -1,0 +1,161 @@
+﻿@model Services.Models.InvoiceModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Services Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-right">
+                <h1 contenteditable>INVOICE</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 text-right" contenteditable>
+                        <strong>Invoice number</strong>
+                        <span id="test2"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 text-right" contenteditable>
+                        <strong>Invoice date</strong>
+                        <span id="test1"></span>                     
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-5">
+                        <h4><p contenteditable id="label-contractor">SELLER</p></h4>
+                    </div>
+                    <div class="col-xs-3">
+                        <h4><p contenteditable id="label-contractee">CUSTOMER</p></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5" id="label-mycompany">
+                <address contenteditable>
+                    <strong>@Html.DisplayFor(Model => Model.SellerName) @Html.DisplayFor(Model => Model.SellerSurname).</strong><br>
+                    <strong>Company:    @Html.DisplayFor(Model => Model.SellerCompanyName) <br> </strong>
+                    Adress:     @Html.DisplayFor(Model => Model.SellerCity) <br>
+                    @Html.DisplayFor(Model => Model.SellerStreet),
+                    @Html.DisplayFor(Model => Model.SellerCode) <br />
+                    Phone:      @Html.DisplayFor(Model => Model.SellerPhoneNumber) <br>
+                    NIP:        @Html.DisplayFor(Model => Model.SellerNIP) <br>
+                </address>
+            </div>
+            <div class="col-xs-5">
+                <address contenteditable id="label-yourcompany">
+                    <strong>@Html.DisplayFor(Model => Model.Name) @Html.DisplayFor(Model => Model.Surname).</strong><br>
+                    <strong>Company:    @Html.DisplayFor(Model => Model.CompanyName) <br></strong>
+                    Addres:     @Html.DisplayFor(Model => Model.City)<br />
+                    @Html.DisplayFor(Model => Model.Street),
+                    @Html.DisplayFor(Model => Model.Code)    <br>
+                    Phone:      @Html.DisplayFor(Model => Model.PhoneNumber) <br>
+                    NIP:        @Html.DisplayFor(Model => Model.NIP) <br>
+                </address>
+                <p>
+                </p>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr bgcolor="aqua">
+                    <th>
+                        ServiceName
+                    </th>
+                    <th>
+                        UnitPrice
+                    </th>
+                    <th>
+                        NetPrice
+                    </th>
+                    <th>
+                        Vat
+                    </th>
+                    <th>
+                        VatAmount
+                    </th>
+                    <th>
+                        PretaxPrice
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.AllServices.Count; i++)
+            {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(model => model.ServiceName)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.UnitPrice)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.NetPrice)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.Vat)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.VatAmount)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(model => model.PretaxPrice)
+                        </th>
+                    </tr>
+                }
+                <tr>
+                    <th>
+                        Sum
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                    </th>
+                    <th bgcolor="aqua">
+                        @Model.AllServices.Sum(p => p.VatAmount)
+                    </th>
+                    <th bgcolor="aqua">
+                        @Model.AllServices.Sum(p => p.PretaxPrice)
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+        <script type="text/javascript">
+
+        var czas = new Date();
+        var element = document.getElementById('test1');
+        element.innerHTML += " " + czas.getDate() + "." + (czas.getMonth() + 1) + "." + czas.getFullYear();
+        var faktura = document.getElementById('test2');
+        faktura.innerHTML += " " + czas.getDate() + "/" + (czas.getMonth() + 1) + "/" + czas.getFullYear();
+
+        </script>
+
+</body>
+</html>
+

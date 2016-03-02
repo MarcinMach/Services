@@ -13,23 +13,57 @@ namespace Services.Controllers
 {
     public class CustomerServiceController : Controller
     {
-        
-
+                
         public ActionResult Index()
-        {
-          
+        {        
             var customerservice = new CustomerServiceModel();
             customerservice.Customers = new SelectList(CustomerManager.Customers, "Id", "Name");
             customerservice.Service = new SelectList(ServiceManager.Service, "Id", "ServiceName");
             return View("Index", customerservice);           
-
         }
 
         public ActionResult Invoice()
         {
             return View();
-        }
+        }        
 
+        public ActionResult Pdf (InvoiceModel model)
+        {
+            var invoice = new InvoiceModel();
+            var customer = CustomerManager.GetById(model.CustomerId);
+            var seller = SellerManager.GetById(1);
+            var services = ServiceManager.GetServiceByIds(model.lista);
+            var service = ServiceManager.GetById(model.ServiceId);
+
+            invoice.Name = customer.Name;
+            invoice.Surname = customer.Surname;
+            invoice.City = customer.City;
+            invoice.CompanyName = customer.CompanyName;
+            invoice.Code = customer.Code;
+            invoice.NIP = customer.NIP;
+            invoice.CompanyName = customer.CompanyName;
+            invoice.Street = customer.Street;
+            invoice.PhoneNumber = customer.PhoneNumber;
+            invoice.SellerName = seller.Name;
+            invoice.SellerSurname = seller.Surname;
+            invoice.SellerCity = seller.City;
+            invoice.SellerCompanyName = customer.CompanyName;
+            invoice.SellerCode = seller.Code;
+            invoice.SellerNIP = seller.NIP;
+            invoice.SellerStreet = seller.Street;
+            invoice.SellerPhoneNumber = seller.PhoneNumber;
+            invoice.SellerCompanyName = seller.CompanyName;         
+            invoice.CustomerId = customer.Id;
+            invoice.AllServices = services.ToList();
+            invoice.ServiceName = service.ServiceName;
+            invoice.Vat = service.Vat;
+            invoice.NetPrice = service.NetPrice;
+            invoice.UnitPrice = service.UnitPrice;
+            invoice.VatAmount = service.VatAmount;
+            invoice.PretaxPrice = service.PretaxPrice;
+
+            return new Rotativa.ViewAsPdf("Pdf", invoice);
+        }
 
         public ActionResult GenerateInvoice(CustomerServiceModel model)
         {
@@ -64,17 +98,13 @@ namespace Services.Controllers
             invoice.SellerPhoneNumber = seller.PhoneNumber;
             invoice.SellerCompanyName = seller.CompanyName;
             invoice.AllServices = services.ToList();
+            invoice.CustomerId = customer.Id;
+            invoice.SellerId = service.Id;
+            invoice.ServiceId = service.Id;
 
-            return View("Invoice", invoice);
+            return View("Invoice", invoice);            
         }
-            public ActionResult Zobacz(CustomerServiceModel model)
-              {
-                   var invoice = new InvoiceModel();
-
-                   return new Rotativa.ViewAsPdf("Invoice", invoice);
-               }
-
-
+            
         public JsonResult GetCustomerById(int customerId)
         {
             var customer = CustomerManager.GetById(customerId);
@@ -86,8 +116,6 @@ namespace Services.Controllers
                 city = customer.City,
                 street = customer.Street,
             };
-
-
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -106,6 +134,7 @@ namespace Services.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult GetServiceById(int serviceId)
         {
             var service = ServiceManager.GetById(serviceId);
@@ -117,7 +146,6 @@ namespace Services.Controllers
                 vat = service.Vat,
                 vatAmount = service.VatAmount,
                 pretaxPrice = service.PretaxPrice,
-
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }

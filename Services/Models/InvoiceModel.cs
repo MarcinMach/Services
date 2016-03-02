@@ -42,6 +42,8 @@ namespace Services.Models
 
         public List<Service> AllServices { get; set; }
 
+        public List<int> lista { get; set; }
+
         public int SellerId { get; set; }
 
         public string SellerName { get; set; }
@@ -61,5 +63,7 @@ namespace Services.Models
         public Nullable<int>SellerNIP { get; set; }
 
         public double Amount { get; set; }
+
+
     }
 }

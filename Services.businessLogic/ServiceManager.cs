@@ -57,7 +57,7 @@ namespace Services.businessLogic
                 return null;
             }
         }
-        //TODO funkcja zwracająca listę produktów przez id
+
         public static List<Service> GetServiceByIds(List<int> servicesId)
         {
             try
@@ -78,9 +78,6 @@ namespace Services.businessLogic
                             sortedCustomers.Add(service);
                     }
                     return sortedCustomers;
-
-
-
                 }
             }
             catch (Exception ex)
@@ -119,7 +116,6 @@ namespace Services.businessLogic
         }
 
         public static Customer Delete(int projectId)
-
         {
             try
             {
@@ -141,7 +137,6 @@ namespace Services.businessLogic
         }
 
         public static Service Edit(int Id, string serviceName, float unitPrice, float netPrice, int VAT)
-
         {
             try
             {
@@ -158,7 +153,6 @@ namespace Services.businessLogic
 
                     context.SaveChanges();
                     return editService;
-
                 };
             }
             catch (Exception ex)

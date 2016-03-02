@@ -30,7 +30,6 @@ namespace Services.Models
         [Required(ErrorMessage = "Code required")]
         public int Code { get; set; }
 
-
         public Nullable<int> PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "NIP required")]

@@ -13,10 +13,62 @@ namespace Services.Controllers
 {
     public class AllServicesController : Controller
     {
-        public ActionResult Index()
+
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            var allservices = ServiceManager.GetList();
-            return View(allservices);
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.UnitSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
+            ViewBag.NetSortParm = sortOrder == "NetPrice" ? "NetPrice_desc" : "NetPrice";
+            ViewBag.VatSortParm = sortOrder == "Vat" ? "Vat_desc" : "Vat";
+            ViewBag.VatAmountSortParm = sortOrder == "VatAmount" ? "VatAmount_desc" : "VatAmount";
+            ViewBag.PretaxSortParm = sortOrder == "PretaxPrice" ? "PretaxPrice_desc" : "PretaxPrice";
+
+            var service = ServiceManager.GetList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                service = service.Where(s => s.ServiceName.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    service = service.OrderBy(s => s.ServiceName).ToList();
+                    break;
+                case "UnitPrice":
+                    service = service.OrderBy(s => s.UnitPrice).ToList();
+                    break;
+                case "UnitPrice_desc":
+                    service = service.OrderByDescending(s => s.UnitPrice).ToList();
+                    break;
+                case "NetPrice":
+                    service = service.OrderBy(s => s.NetPrice).ToList();
+                    break;
+                case "NetPrice_desc":
+                    service = service.OrderByDescending(s => s.NetPrice).ToList();
+                    break;
+                case "Vat":
+                    service = service.OrderBy(s => s.Vat).ToList();
+                    break;
+                case "Vat_desc":
+                    service = service.OrderByDescending(s => s.Vat).ToList();
+                    break;
+                case "VatAmount":
+                    service = service.OrderBy(s => s.VatAmount).ToList();
+                    break;
+                case "VatAmount_desc":
+                    service = service.OrderByDescending(s => s.VatAmount).ToList();
+                    break;
+                case "PretaxPrice":
+                    service = service.OrderBy(s => s.PretaxPrice).ToList();
+                    break;
+                case "PretaxPrice_desc":
+                    service = service.OrderByDescending(s => s.PretaxPrice).ToList();
+                    break;
+                default:
+                    service = service.OrderByDescending(s => s.ServiceName).ToList();
+                    break;
+
+            }
+            return View(service.ToList());
         }
 
         public ActionResult Create()
@@ -52,6 +104,7 @@ namespace Services.Controllers
 
             return View(selected);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)

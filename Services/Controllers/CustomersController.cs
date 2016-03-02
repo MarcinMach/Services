@@ -14,12 +14,55 @@ namespace Services.Controllers
 {
     public class CustomersController : Controller
     {      
-        public ActionResult Index(string sortOrder)
+           public ActionResult Index(string sortOrder, string searchString)
         {
-            var customers = CustomerManager.GetList();
-            return View(customers);
-        }
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.SurnameSortParm = sortOrder == "Surname" ? "surname_desc" : "Surname";
+            ViewBag.CompanySortParm = sortOrder == "Company" ? "company_desc" : "Company";
+            ViewBag.CitySortParm = sortOrder == "Ctiy" ? "city_desc" : "Ctiy";
+            ViewBag.StreetSortParm = sortOrder == "Street" ? "street_desc" : "Street";
 
+            var customer = CustomerManager.GetList();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                customer = customer.Where(s => s.Name.Contains(searchString)).ToList();
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    customer = customer.OrderByDescending(s => s.Name).ToList();
+                    break;
+                case "Surname":
+                    customer = customer.OrderBy(s => s.Surname).ToList();
+                    break;
+                case "surname_desc":
+                    customer = customer.OrderByDescending(s => s.Surname).ToList();
+                    break;
+                case "Company":
+                    customer = customer.OrderBy(s => s.CompanyName).ToList();
+                    break;
+                case "company_desc":
+                    customer = customer.OrderByDescending(s => s.CompanyName).ToList();
+                    break;
+                case "Ctiy":
+                    customer = customer.OrderBy(s => s.City).ToList();
+                    break;
+                case "city_desc":
+                    customer = customer.OrderByDescending(s => s.City).ToList();
+                    break;
+                case "Street":
+                    customer = customer.OrderBy(s => s.Street).ToList();
+                    break;
+                case "street_desc":
+                    customer = customer.OrderByDescending(s => s.Street).ToList();
+                    break;
+                default:
+                    customer = customer.OrderBy(s => s.Name).ToList();
+                    break;
+            }
+            return View(customer.ToList());
+        }
+    
         public ActionResult Details(int id)
         {           
             var selected =  CustomerManager.GetById(id);

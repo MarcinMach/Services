@@ -1,8 +1,9 @@
 ﻿@model Services.Models.InvoiceModel
 
- @using (Html.BeginForm())
- {
-    
+
+<form action="@Url.Action("Pdf")" method="post" name="pdf">
+
+
         <link rel="stylesheet" href="css/bootstrap.css">
 
         <div class="container">
@@ -43,7 +44,7 @@
             <div class="row">
                 <div class="col-xs-5" id="label-mycompany">
                     <address contenteditable>
-                        <strong>@Html.DisplayFor(Model => Model.SellerName) @Html.DisplayFor(Model => Model.SellerSurname).</strong><br>
+                        <strong>@Html.DisplayFor(Model => Model.SellerName, new { @id = "selectedSeller" }) @Html.DisplayFor(Model => Model.SellerSurname).</strong><br>
                         <strong>Company:    @Html.DisplayFor(Model => Model.SellerCompanyName) <br> </strong>
                         Adress:     @Html.DisplayFor(Model => Model.SellerCity) <br>
                         @Html.DisplayFor(Model => Model.SellerStreet),
@@ -54,7 +55,8 @@
                 </div>
                 <div class="col-xs-5">
                     <address contenteditable id="label-yourcompany">
-                        <strong>@Html.DisplayFor(Model => Model.Name) @Html.DisplayFor(Model => Model.Surname).</strong><br>
+                        <strong>@Html.DisplayFor(Model => Model.Name)<br />                            
+                        </td> @Html.DisplayFor(Model => Model.Surname).</strong><br>
                         <strong>Company:    @Html.DisplayFor(Model => Model.CompanyName) <br></strong>
                         Addres:     @Html.DisplayFor(Model => Model.City)<br />
                         @Html.DisplayFor(Model => Model.Street),
@@ -63,6 +65,10 @@
                         NIP:        @Html.DisplayFor(Model => Model.NIP) <br>
                     </address>
                     <p>
+                        <input type="hidden" name="CustomerId" value="@Html.DisplayFor(Model => Model.CustomerId)" />
+                        <input type="hidden" name="SellerId" value="@Html.DisplayFor(Model => Model.SellerId)" />   
+                        <input type="hidden" name="ServiceId" value="@Html.DisplayFor(Model => Model.ServiceId)" />                             
+                                    
                     </p>
                 </div>
             </div>
@@ -90,11 +96,13 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @for (int i = 0; i < Model.AllServices.Count; i++)
-                    {
+                    {                        
                         <tr>
+                          
                             <th>
-                                @Html.DisplayFor(model => model.ServiceName)
+                                @Html.DisplayFor(model => model.ServiceName)                                                        
                             </th>
                             <th>
                                 @Html.DisplayFor(model => model.UnitPrice)
@@ -110,8 +118,11 @@
                             </th>
                             <th>
                                 @Html.DisplayFor(model => model.PretaxPrice)
-                            </th>
+                            </th>                            
+                            <input type="hidden" name="ServiceId" value="@Html.DisplayFor(x => x.ServiceId)" />
+                                <input type='hidden' name='lista[@i]' value="@Html.DisplayFor(x=>x.ServiceId)" />
                         </tr>
+
                     }
                     <tr>
                         <th>
@@ -130,22 +141,45 @@
                             @Model.AllServices.Sum(p => p.PretaxPrice)
                         </th>
                     </tr>
+
                 </tbody>
 
             </table>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <button type="submit" >Pdf</button>
+                </div>
+            </div>
 
-           
         </div>
- 
- }
-@section scripts
+</form>
+
+        @section scripts
 {
 
-<script type="text/javascript">
+ <script type="text/javascript">
 
-    var czas = new Date();
-    var element = document.getElementById('test1');
-    element.innerHTML += " " + czas.getDate() + "." + (czas.getMonth()+1) + "." + czas.getFullYear();
+        var czas = new Date();
+         var element = document.getElementById('test1');
+         element.innerHTML += " " + czas.getDate() + "." + (czas.getMonth() + 1) + "." + czas.getFullYear();
 
-</script>
-}
+         $(document).ready(function () {
+             $("#print").click(function () {
+                 console.log($("form[name=pdf]").serialize());
+                 $.ajax({
+                     url: '@Url.Action("Pdf")',
+                     type: "GET",
+
+                     cache: false,
+                     data: $("form[name=pdf]").serialize(),
+                     success: function (data) {
+                         $("selectedSeller").get(data.id),
+                         $("Pdf").get(data.Model.AllServices)
+                         $("Pdf").get(data.Model.id)
+                     }
+                 }
+              )
+             })
+     }) </script>
+            }
+      
