@@ -16,6 +16,8 @@ namespace Services.Controllers
 
         public ActionResult Index(string sortOrder, string searchString)
         {
+
+            //TODO: jestes w stanie zrobić to w inny sposób zeby nie przekazywać tyle zmienych ? 
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.UnitSortParm = sortOrder == "UnitPrice" ? "UnitPrice_desc" : "UnitPrice";
             ViewBag.NetSortParm = sortOrder == "NetPrice" ? "NetPrice_desc" : "NetPrice";
@@ -83,6 +85,7 @@ namespace Services.Controllers
         {
             if (ModelState.IsValid)
             {
+                //TODO: muszisz pisać jednolicie zwracała Ci uwagę na to raz zmienne prywatne piszez duża za chwilke mała 
                 var Newservice = ServiceManager.AddNew(servicesModel.Id, servicesModel.ServiceName, servicesModel.UnitPrice,
                                                 servicesModel.NetPrice, servicesModel.Vat);
 

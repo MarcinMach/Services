@@ -88,7 +88,6 @@
                 <div class="form-group">
                     <label class="control-label col-md-2"> Nazwa usługi: </label>
                     <div class="col-md-10">
-                        @* Podobnie wczytaj usługi tak jak wyżej kontrahenta *@
                         @Html.DropDownListFor(m => m.SelectedService, @Model.Service, new { @id = "selectedService" })
                         <button type="button" id="selectServiceButton">Wybierz usługę</button>
                     </div>

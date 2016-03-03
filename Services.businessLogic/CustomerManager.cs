@@ -133,6 +133,8 @@ namespace Services.businessLogic
                     var deletePerson = (context.Customers
                     .Where(p => p.Id == projectId)
                     .FirstOrDefault());
+
+                    //TODO: co jeśli nie znajdzie mi osoby ? Podam id które nie istnieje 
                     context.Customers.Remove(deletePerson);
 
                     context.SaveChanges();

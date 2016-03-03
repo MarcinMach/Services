@@ -55,6 +55,7 @@ namespace Services.Controllers
             invoice.SellerCompanyName = seller.CompanyName;         
             invoice.CustomerId = customer.Id;
             invoice.AllServices = services.ToList();
+            //TODO: po co te zmiene są ? 
             invoice.ServiceName = service.ServiceName;
             invoice.Vat = service.Vat;
             invoice.NetPrice = service.NetPrice;
