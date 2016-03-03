@@ -18,7 +18,6 @@ namespace Services.businessLogic
                 {
                     _Customers = GetList();
                 }
-
                 return _Customers;
             }
         }
@@ -34,7 +33,6 @@ namespace Services.businessLogic
             }
             catch (Exception ex)
             {
-
                 return new List<Customer>();
             }
         }
@@ -49,14 +47,11 @@ namespace Services.businessLogic
                         .Where(p => p.Id == id)
                         .FirstOrDefault();
 
-
                     return record;
-
                 }
             }
             catch (Exception ex)
             {
-
                 return null;
             }
         }
@@ -67,10 +62,8 @@ namespace Services.businessLogic
             {
                 using (var context = new ServicesDBEntities())
                 {
-
                     var newPerson = new Customer
                     {
-
                         Name = name,
                         Surname = surname,
                         CompanyName = companyName,
@@ -80,9 +73,7 @@ namespace Services.businessLogic
                         PhoneNumber = phoneNumber,
                         NIP = NIP
                     };
-                    context.Customers.Add(newPerson
-                        );
-
+                    context.Customers.Add(newPerson);
                     context.SaveChanges();
 
                     return newPerson;
@@ -115,7 +106,6 @@ namespace Services.businessLogic
 
                     context.SaveChanges();
                     return editPerson;
-
                 };
             }
             catch (Exception ex)
@@ -134,14 +124,11 @@ namespace Services.businessLogic
                     .Where(p => p.Id == projectId)
                     .FirstOrDefault());
 
-                    //TODO: co jeśli nie znajdzie mi osoby ? Podam id które nie istnieje 
                     context.Customers.Remove(deletePerson);
-
                     context.SaveChanges();
 
                     return null;
                 }
-
             }
             catch (Exception ex)
             {
@@ -149,6 +136,7 @@ namespace Services.businessLogic
             }
 
         }
+
         public static Customer GetCustomerName(string name)
         {
             try
@@ -160,16 +148,12 @@ namespace Services.businessLogic
                         .FirstOrDefault();
 
                     return record;
-
                 }
             }
             catch (Exception ex)
             {
-
                 return null;
             }
-        }
-
-    
+        }    
     }
 }

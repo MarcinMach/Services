@@ -2,50 +2,53 @@
 
 
 <form action="@Url.Action("GenerateInvoice")" method="post" name="formularz">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <div class="form-horizontal">
         <div class="row">
             <div class="col-lg-6">
                 <h4>Customer</h4>
                 <hr />
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Nazwa kontrahenta: </label>
+                    <label class="control-label col-md-2"> Customer Name: </label>
                     <div class="col-md-10">
                         @Html.DropDownListFor(m => m.SelectedCustomer, @Model.Customers, new { @id = "selectedCustomer" })
-                        <button type="button" id="selectCustomerButton">Wybierz kontrahenta</button>
+                        <button type="button" class="btn btn-info" id="selectCustomerButton">Select customer</button>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Imię: </label>
+                    <label class="control-label col-md-2"> Name: </label>
                     <div class="col-md-10">
                         <input type="text" id="name" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Nazwisko: </label>
+                    <label class="control-label col-md-2"> Surname: </label>
                     <div class="col-md-10">
                         <input type="text" id="surname" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Firma: </label>
+                    <label class="control-label col-md-2"> Company: </label>
                     <div class="col-md-10">
                         <input type="text" id="companyName" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Miasto: </label>
+                    <label class="control-label col-md-2"> City: </label>
                     <div class="col-md-10">
                         <input type="text" id="city" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Ulica: </label>
+                    <label class="control-label col-md-2"> Street: </label>
                     <div class="col-md-10">
                         <input type="text" id="street" />
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>
@@ -69,43 +72,34 @@
                             </tr>
                         </thead>
                         <tbody id="customertable">
-
                         </tbody>
                     </table>
-
-
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <button type="submit" id="Send">Utwórz Fakturę</button>
-                        </div>
-                    </div>
                 </div>
             </div>
-
             <div class="col-lg-6">
                 <h4>Services</h4>
                 <hr />
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Nazwa usługi: </label>
+                    <label class="control-label col-md-2"> Service Name: </label>
                     <div class="col-md-10">
                         @Html.DropDownListFor(m => m.SelectedService, @Model.Service, new { @id = "selectedService" })
-                        <button type="button" id="selectServiceButton">Wybierz usługę</button>
+                        <button type="button" class="btn btn-info" id="selectServiceButton">Select Service</button>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Nazwa usługi: </label>
+                    <label class="control-label col-md-2"> Service: </label>
                     <div class="col-md-10">
                         <input type="text" id="serviceName" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Cena jendostkowa: </label>
+                    <label class="control-label col-md-2"> UnitPrice: </label>
                     <div class="col-md-10">
                         <input type="text" id="unitPrice" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Cena netto: </label>
+                    <label class="control-label col-md-2"> NetPrice: </label>
                     <div class="col-md-10">
                         <input type="text" id="netPrice" />
                     </div>
@@ -117,55 +111,43 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Wartość Vat: </label>
+                    <label class="control-label col-md-2"> VatAmount: </label>
                     <div class="col-md-10">
                         <input type="text" id="vatAmount" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2"> Cena brutto: </label>
+                    <label class="control-label col-md-2"> PretaxPrice: </label>
                     <div class="col-md-10">
                         <input type="text" id="pretaxPrice" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-10">
-                        <button type="button" id="addServiceButton">Dodaj usługę</button>
+                    <div class="col-md-10">                       
+                            <button type="button" class="btn btn-info" id="addServiceButton">Add Service</button>
+                            <button type="submit" class="btn btn-info" id="Send">Create Invoice</button>
                     </div>
                 </div>
-            </div>
-
-            
+            </div>           
         </div>
-        </div>
-
+    </div>
 </form>
 
 @section scripts
 {
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ServiceTable = [];
 
-    <script type="text/javascript">
-        //W jaki sposób zapisać do kontrolera?
-        // Mozna na kilka sposobów
-        // 1. Pierwszy klika w przycisk i przenosi mnie na akcje z formularza (musimy mieć odpowiednio zrobione inputy)  - już działa ta wersja
-
-        // 2. Drugi za pomocą ajaxa przesyłam dane czyli id kontrahenta oraz id usług  - zastanów sie w jaki sposób można to zrobić ??
-
-        $(document).ready(function () {
-                      function CreateService() {
+            function CreateService() {
                 this.serviceName = $("#serviceName").val();
                 this.unitPrice = $("#unitPrice").val();
                 this.netPrice = $("#netPrice").val(),
                 this.vat = $("#vat").val(),
                 this.vatAmount = $("#vatAmount").val(),
                 this.pretaxPrice = $("#pretaxPrice").val();
-
-                this.id = $("#selectedService").val();
-               
-                
+                this.id = $("#selectedService").val();                
             }
-
-                      var ServiceTable = [];
 
             $("#addServiceButton").click(function () {
                 var serviceId = $("#selectedService").val();
@@ -177,24 +159,20 @@
                 for (var i = 0; i <= length; i++) {
                     htmla +=
                         "<tr>" +
-                            "<td> " + ServiceTable[i].serviceName + "<input type='hidden' name='SelectedServices[" + i + "]' value='" + createservice.id + "' /></td>" +
+                            "<td> " + ServiceTable[i].serviceName + "<input type='hidden' name='selectedServices[" + i + "]' value='" + ServiceTable[i].id + "' /></td>" +
                             "<td> " + ServiceTable[i].unitPrice + "</td>" +
                             "<td> " + ServiceTable[i].netPrice + "</td>" +
                             "<td> " + ServiceTable[i].vat + "</td>" +
                             "<td> " + ServiceTable[i].vatAmount + "</td>" +
                             "<td> " + ServiceTable[i].pretaxPrice + "</td>" +                           
-                        "</tr>"
-                    
+                        "</tr>"                   
                 }
 
                 $("#customertable").html(htmla);
             });
 
-
-
             $("#selectCustomerButton").click(function () {
                 var customerId = $("#selectedCustomer").val();
-
                 $.ajax({
                     url: '@Url.Action("GetCustomerById")'+"?customerId="+customerId,
                     type: "GET",
@@ -212,6 +190,7 @@
                     }
                 });
             });
+
             $("#selectServiceButton").click(function () {
                 var serviceId = $("#selectedService").val();
 
@@ -226,7 +205,6 @@
                         $("#vatAmount").val(json.vatAmount);
                         $("#pretaxPrice").val(json.pretaxPrice);
                         console.log(json);
-
                     },
                     error: function (xhr, status, errorThrown) {
                         alert(xhr);
@@ -239,8 +217,7 @@
                 console.log($("form[name=formularz]").serialize());
                 $.ajax({
                     url: '@Url.Action("GenerateInvoice")',
-                    type: "GET",
-                  
+                    type: "GET",                 
                     cache: false,
                     data: $("form[name=formularz]").serialize(),
                     success: function (data) {
@@ -249,9 +226,5 @@
                         $("addServiceButton").get(data.id)
                     }}
              )})
-
-
-
-
         }) </script>
 }

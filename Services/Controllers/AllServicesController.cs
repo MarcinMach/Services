@@ -74,8 +74,7 @@ namespace Services.Controllers
         }
 
         public ActionResult Create()
-        {
-           
+        {           
             return View();
         }
 
@@ -85,11 +84,10 @@ namespace Services.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO: muszisz pisać jednolicie zwracała Ci uwagę na to raz zmienne prywatne piszez duża za chwilke mała 
-                var Newservice = ServiceManager.AddNew(servicesModel.Id, servicesModel.ServiceName, servicesModel.UnitPrice,
+                var newService = ServiceManager.AddNew(servicesModel.Id, servicesModel.ServiceName, servicesModel.UnitPrice,
                                                 servicesModel.NetPrice, servicesModel.Vat);
 
-                return View(Newservice);
+                return View(newService);
             }
             else
             {
@@ -104,7 +102,6 @@ namespace Services.Controllers
             {
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
-
             return View(selected);
         }
 
@@ -136,10 +133,10 @@ namespace Services.Controllers
         {
             if (ModelState.IsValid)
             {
-                var EditService = ServiceManager.Edit(servicesModel.Id, servicesModel.ServiceName, servicesModel.UnitPrice,
+                var editService = ServiceManager.Edit(servicesModel.Id, servicesModel.ServiceName, servicesModel.UnitPrice,
                                                       servicesModel.NetPrice, servicesModel.Vat);
 
-                return View(EditService);
+                return View(editService);
             }
             else
             {

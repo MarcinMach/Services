@@ -18,7 +18,6 @@ namespace Services.businessLogic
                 {
                     _Seller = GetList();
                 }
-
                 return _Seller;
             }
         }
@@ -49,18 +48,14 @@ namespace Services.businessLogic
                         .Where(p => p.Id == id)
                         .FirstOrDefault();
 
-
                     return record;
-
                 }
             }
             catch (Exception ex)
             {
-
                 return null;
             }
         }
-
     }
 }
 

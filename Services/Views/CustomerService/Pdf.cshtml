@@ -14,16 +14,13 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
     <link rel="stylesheet" href="css/bootstrap.css">
-
     <div class="container">
         <div class="row">
             <div class="col-xs-12 text-right">
                 <h1 contenteditable>INVOICE</h1>
             </div>
         </div>
-
         <div class="row">
             <div class="col-xs-12">
                 <div class="row">
@@ -32,14 +29,12 @@
                         <span id="test2"></span>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-xs-12 text-right" contenteditable>
                         <strong>Invoice date</strong>
                         <span id="test1"></span>                     
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-xs-5">
                         <h4><p contenteditable id="label-contractor">SELLER</p></h4>
@@ -72,8 +67,7 @@
                     Phone:      @Html.DisplayFor(Model => Model.PhoneNumber) <br>
                     NIP:        @Html.DisplayFor(Model => Model.NIP) <br>
                 </address>
-                <p>
-                </p>
+                <br /><br />
             </div>
         </div>
         <table class="table table-bordered">
@@ -100,28 +94,26 @@
                 </tr>
             </thead>
             <tbody>
-
-                @* TODO: zle wyswietla blad logiczny! dodaj dwie inne usługi w jaki spsoób ci je wyswietli ! ?  *@
                 @for (int i = 0; i < Model.AllServices.Count; i++)
             {
                     <tr>
                         <th>
-                            @Html.DisplayFor(model => model.ServiceName)
+                            @Html.DisplayName(Model.AllServices[i].ServiceName)
                         </th>
                         <th>
-                            @Html.DisplayFor(model => model.UnitPrice)
+                            @Html.Raw(Model.AllServices[i].UnitPrice)
                         </th>
                         <th>
-                            @Html.DisplayFor(model => model.NetPrice)
+                            @Html.Raw(Model.AllServices[i].NetPrice)
                         </th>
                         <th>
-                            @Html.DisplayFor(model => model.Vat)
+                            @Html.Raw(Model.AllServices[i].Vat)
                         </th>
                         <th>
-                            @Html.DisplayFor(model => model.VatAmount)
+                            @Html.Raw(Model.AllServices[i].VatAmount)
                         </th>
                         <th>
-                            @Html.DisplayFor(model => model.PretaxPrice)
+                            @Html.Raw(Model.AllServices[i].PretaxPrice)
                         </th>
                     </tr>
                 }
@@ -144,20 +136,30 @@
                 </tr>
             </tbody>
         </table>
+        <br /><br />
+        <div>
+            Bank Name: NBP O/O Poznań <br />
+            Account Number: 83 1010 1469 0081 7813 9800 0000
+        </div>
+        <div><br /><br /><br /><br /><br /><br />
+            <div class="col-xs-7">
+                <p contenteditable id="label-contractor">Customer Signature</p>
+            </div>
+            <div class="col-xs-4">
+                <p contenteditable id="label-contractee">Seller Signature</p>
+            </div>
+            
+       </div>
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-
-        <script type="text/javascript">
-
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script type="text/javascript">
         var czas = new Date();
         var element = document.getElementById('test1');
         element.innerHTML += " " + czas.getDate() + "." + (czas.getMonth() + 1) + "." + czas.getFullYear();
         var faktura = document.getElementById('test2');
         faktura.innerHTML += " " + czas.getDate() + "/" + (czas.getMonth() + 1) + "/" + czas.getFullYear();
-
-        </script>
-
+</script>
 </body>
 </html>
 

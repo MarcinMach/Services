@@ -27,13 +27,12 @@ namespace Services.Controllers
             return View();
         }        
 
-        public ActionResult Pdf (InvoiceModel model)
+        public ActionResult Pdf (InvoiceModel model, string Save)
         {
             var invoice = new InvoiceModel();
             var customer = CustomerManager.GetById(model.CustomerId);
             var seller = SellerManager.GetById(1);
             var services = ServiceManager.GetServiceByIds(model.lista);
-            var service = ServiceManager.GetById(model.ServiceId);
 
             invoice.Name = customer.Name;
             invoice.Surname = customer.Surname;
@@ -55,21 +54,19 @@ namespace Services.Controllers
             invoice.SellerCompanyName = seller.CompanyName;         
             invoice.CustomerId = customer.Id;
             invoice.AllServices = services.ToList();
-            //TODO: po co te zmiene są ? 
-            invoice.ServiceName = service.ServiceName;
-            invoice.Vat = service.Vat;
-            invoice.NetPrice = service.NetPrice;
-            invoice.UnitPrice = service.UnitPrice;
-            invoice.VatAmount = service.VatAmount;
-            invoice.PretaxPrice = service.PretaxPrice;
 
+            if (Save != null) {
+                return new Rotativa.ViewAsPdf("Pdf", invoice) { FileName = "TestViewAsPdf.pdf" };
+            }
             return new Rotativa.ViewAsPdf("Pdf", invoice);
-        }
+            
+
+    }
 
         public ActionResult GenerateInvoice(CustomerServiceModel model)
         {
             var invoice = new InvoiceModel();
-            var service = ServiceManager.GetById(model.SelectedService);
+
             var customer = CustomerManager.GetById(model.SelectedCustomer);
             var seller = SellerManager.GetById(1);
             var services = ServiceManager.GetServiceByIds(model.SelectedServices);
@@ -83,12 +80,6 @@ namespace Services.Controllers
             invoice.CompanyName = customer.CompanyName;
             invoice.Street = customer.Street;
             invoice.PhoneNumber = customer.PhoneNumber;
-            invoice.ServiceName = service.ServiceName;
-            invoice.Vat = service.Vat;
-            invoice.NetPrice = service.NetPrice;
-            invoice.UnitPrice = service.UnitPrice;
-            invoice.VatAmount = service.VatAmount;
-            invoice.PretaxPrice = service.PretaxPrice;
             invoice.SellerName = seller.Name;
             invoice.SellerSurname = seller.Surname;
             invoice.SellerCity = seller.City;
@@ -100,8 +91,7 @@ namespace Services.Controllers
             invoice.SellerCompanyName = seller.CompanyName;
             invoice.AllServices = services.ToList();
             invoice.CustomerId = customer.Id;
-            invoice.SellerId = service.Id;
-            invoice.ServiceId = service.Id;
+           
 
             return View("Invoice", invoice);            
         }

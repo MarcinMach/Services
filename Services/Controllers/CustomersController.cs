@@ -80,10 +80,10 @@ namespace Services.Controllers
         {
             if (ModelState.IsValid)
             {
-                var NewCustomer = CustomerManager.AddNew(customerModel.Name, customerModel.Surname, customerModel.CompanyName,
+                var newCustomer = CustomerManager.AddNew(customerModel.Name, customerModel.Surname, customerModel.CompanyName,
                     customerModel.Street, customerModel.City, customerModel.Code, customerModel.PhoneNumber, customerModel.NIP);
 
-                return View(NewCustomer);
+                return View(newCustomer);
             }
             else
             {
@@ -92,8 +92,7 @@ namespace Services.Controllers
         }
 
         public ActionResult Edit(int id)
-        {
-  
+        {  
             var selected = CustomerManager.GetById(id);
           
             return View(selected);
@@ -105,10 +104,10 @@ namespace Services.Controllers
         {
             if (ModelState.IsValid)
             {
-                var NewCustomer = CustomerManager.Edit(customerModel.Id, customerModel.Name, customerModel.Surname, customerModel.CompanyName,
+                var newCustomer = CustomerManager.Edit(customerModel.Id, customerModel.Name, customerModel.Surname, customerModel.CompanyName,
                  customerModel.Street, customerModel.City, customerModel.Code, customerModel.PhoneNumber, customerModel.NIP);
 
-                return View(NewCustomer);
+                return View(newCustomer);
             }
             else
             {

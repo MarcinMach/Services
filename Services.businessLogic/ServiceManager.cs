@@ -18,7 +18,6 @@ namespace Services.businessLogic
                 {
                     _Service = GetList();
                 }
-
                 return _Service;
             }
         }
@@ -34,7 +33,6 @@ namespace Services.businessLogic
             }
             catch (Exception ex)
             {
-
                 return new List<Service>();
             }
         }
@@ -64,16 +62,14 @@ namespace Services.businessLogic
             {
                 using (var context = new ServicesDBEntities())
                 {
-                    //TODO: Tu bedzie miejsce na kod ? usuń prosze puste linie formatowanie a być spójne kodu .
-                    //TODO: co robi contains ? 
                     var services = from c in context.Services
                                    where servicesId.Contains(c.Id)
                                    select c;
-                    var Allservices = services.ToList();
+                    var allServices = services.ToList();
                     var sortedCustomers = new List<Service>();
                     foreach (int id in servicesId)
                     {
-                        var service = Allservices.Find(x => x.Id == id);
+                        var service = allServices.Find(x => x.Id == id);
                         if (service != null)
                             sortedCustomers.Add(service);
                     }
@@ -94,14 +90,12 @@ namespace Services.businessLogic
                 {
                     var newservice = new Service
                     {
-
                         ServiceName = serviceName,
                         UnitPrice = unitPrice,
                         NetPrice = netPrice,
                         Vat = Vat,
                         VatAmount = ((Vat * unitPrice) / 100),
                         PretaxPrice = (unitPrice + (Vat * unitPrice) / 100),
-
                     };
                     context.Services.Add(newservice);
                     context.SaveChanges();
@@ -125,8 +119,8 @@ namespace Services.businessLogic
                     .Where(p => p.Id == projectId)
                     .FirstOrDefault());
                     context.Services.Remove(deleteServive);
-
                     context.SaveChanges();
+
                     return null;
                 }
             }
@@ -145,7 +139,6 @@ namespace Services.businessLogic
                     var editService = (context.Services
                         .Where(p => p.Id == Id)
                         .FirstOrDefault());
-
                     editService.ServiceName = serviceName;
                     editService.UnitPrice = unitPrice;
                     editService.NetPrice = netPrice;

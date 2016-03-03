@@ -2,159 +2,159 @@
 
 
 <form action="@Url.Action("Pdf")" method="post" name="pdf">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="css/bootstrap.css">
 
-        <link rel="stylesheet" href="css/bootstrap.css">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-right">
-                    <h1 contenteditable>INVOICE</h1>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-right">
+                <h1 contenteditable>INVOICE</h1>
             </div>
-
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-12 text-right" contenteditable>
-                            <strong>Invoice number</strong>
-                            <span>18372918</span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-12 text-right" contenteditable>
-                            <strong>Invoice date</strong>
-                            <span id="test1">
-
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <h4><p contenteditable id="label-contractor">SELLER</p></h4>
-                        </div>
-                        <div class="col-xs-3">
-                            <h4><p contenteditable id="label-contractee">CUSTOMER</p></h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-5" id="label-mycompany">
-                    <address contenteditable>
-                        <strong>@Html.DisplayFor(Model => Model.SellerName, new { @id = "selectedSeller" }) @Html.DisplayFor(Model => Model.SellerSurname).</strong><br>
-                        <strong>Company:    @Html.DisplayFor(Model => Model.SellerCompanyName) <br> </strong>
-                        Adress:     @Html.DisplayFor(Model => Model.SellerCity) <br>
-                        @Html.DisplayFor(Model => Model.SellerStreet),
-                        @Html.DisplayFor(Model => Model.SellerCode) <br />
-                        Phone:      @Html.DisplayFor(Model => Model.SellerPhoneNumber) <br>
-                        NIP:        @Html.DisplayFor(Model => Model.SellerNIP) <br>
-                    </address>
-                </div>
-                <div class="col-xs-5">
-                    <address contenteditable id="label-yourcompany">
-                        <strong>@Html.DisplayFor(Model => Model.Name)<br />                            
-                        </td> @Html.DisplayFor(Model => Model.Surname).</strong><br>
-                        <strong>Company:    @Html.DisplayFor(Model => Model.CompanyName) <br></strong>
-                        Addres:     @Html.DisplayFor(Model => Model.City)<br />
-                        @Html.DisplayFor(Model => Model.Street),
-                        @Html.DisplayFor(Model => Model.Code)    <br>
-                        Phone:      @Html.DisplayFor(Model => Model.PhoneNumber) <br>
-                        NIP:        @Html.DisplayFor(Model => Model.NIP) <br>
-                    </address>
-                    <p>
-                        <input type="hidden" name="CustomerId" value="@Html.DisplayFor(Model => Model.CustomerId)" />
-                        <input type="hidden" name="SellerId" value="@Html.DisplayFor(Model => Model.SellerId)" />   
-                        <input type="hidden" name="ServiceId" value="@Html.DisplayFor(Model => Model.ServiceId)" />                             
-                                    
-                    </p>
-                </div>
-            </div>
-            <table class="table table-bordered">
-                <thead>
-                    <tr bgcolor="aqua">
-                        <th>
-                            ServiceName
-                        </th>
-                        <th>
-                            UnitPrice
-                        </th>
-                        <th>
-                            NetPrice
-                        </th>
-                        <th>
-                            Vat
-                        </th>
-                        <th>
-                            VatAmount
-                        </th>
-                        <th>
-                            PretaxPrice
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @for (int i = 0; i < Model.AllServices.Count; i++)
-                    {                        
-                        <tr>
-                          
-                            <th>
-                                @Html.DisplayFor(model => model.ServiceName)                                                        
-                            </th>
-                            <th>
-                                @Html.DisplayFor(model => model.UnitPrice)
-                            </th>
-                            <th>
-                                @Html.DisplayFor(model => model.NetPrice)
-                            </th>
-                            <th>
-                                @Html.DisplayFor(model => model.Vat)
-                            </th>
-                            <th>
-                                @Html.DisplayFor(model => model.VatAmount)
-                            </th>
-                            <th>
-                                @Html.DisplayFor(model => model.PretaxPrice)
-                            </th>                            
-                            <input type="hidden" name="ServiceId" value="@Html.DisplayFor(x => x.ServiceId)" />
-                                <input type='hidden' name='lista[@i]' value="@Html.DisplayFor(x=>x.ServiceId)" />
-                        </tr>
-
-                    }
-                    <tr>
-                        <th>
-                            Sum
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th>
-                        </th>
-                        <th bgcolor="aqua">
-                            @Model.AllServices.Sum(p => p.VatAmount)
-                        </th>
-                        <th bgcolor="aqua">
-                            @Model.AllServices.Sum(p => p.PretaxPrice)
-                        </th>
-                    </tr>
-
-                </tbody>
-
-            </table>
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <button type="submit" >Pdf</button>
-                </div>
-            </div>
-
         </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 text-right" contenteditable>
+                        <strong>Invoice number</strong>
+                        <span>18372918</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 text-right" contenteditable>
+                        <strong>Invoice date</strong>
+                        <span id="test1">
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-5">
+                        <h4><p contenteditable id="label-contractor">SELLER</p></h4>
+                    </div>
+                    <div class="col-xs-3">
+                        <h4><p contenteditable id="label-contractee">CUSTOMER</p></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5" id="label-mycompany">
+                <address contenteditable>
+                    <strong>@Html.DisplayFor(Model => Model.SellerName, new { @id = "selectedSeller" }) @Html.DisplayFor(Model => Model.SellerSurname).</strong><br>
+                    <strong>Company:    @Html.DisplayFor(Model => Model.SellerCompanyName) <br> </strong>
+                    Adress:     @Html.DisplayFor(Model => Model.SellerCity) <br>
+                    @Html.DisplayFor(Model => Model.SellerStreet),
+                    @Html.DisplayFor(Model => Model.SellerCode) <br />
+                    Phone:      @Html.DisplayFor(Model => Model.SellerPhoneNumber) <br>
+                    NIP:        @Html.DisplayFor(Model => Model.SellerNIP) <br>
+                </address>
+            </div>
+            <div class="col-xs-5">
+                <address contenteditable id="label-yourcompany">
+                    <strong>
+                        @Html.DisplayFor(Model => Model.Name)<br />
+                    </td> @Html.DisplayFor(Model => Model.Surname).
+                </strong><br>
+                <strong>Company:    @Html.DisplayFor(Model => Model.CompanyName) <br></strong>
+                Addres:     @Html.DisplayFor(Model => Model.City)<br />
+                @Html.DisplayFor(Model => Model.Street),
+                @Html.DisplayFor(Model => Model.Code)    <br>
+                Phone:      @Html.DisplayFor(Model => Model.PhoneNumber) <br>
+                NIP:        @Html.DisplayFor(Model => Model.NIP) <br>
+            </address>
+            <p>
+                <input type="hidden" name="CustomerId" value="@Html.DisplayFor(Model => Model.CustomerId)" />
+                <input type="hidden" name="SellerId" value="@Html.DisplayFor(Model => Model.SellerId)" />
+                <input type="hidden" name="ServiceId" value="@Html.DisplayFor(Model => Model.ServiceId)" />
+                <br /><br />
+            </p>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr bgcolor="aqua">
+                <th>
+                    ServiceName
+                </th>
+                <th>
+                    UnitPrice
+                </th>
+                <th>
+                    NetPrice
+                </th>
+                <th>
+                    Vat
+                </th>
+                <th>
+                    VatAmount
+                </th>
+                <th>
+                    PretaxPrice
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @for (int i = 0; i < Model.AllServices.Count; i++)
+            {
+                <tr>
+                    <th>
+                        @Html.DisplayName(Model.AllServices[i].ServiceName)
+                    </th>
+                    <th>
+                        @Html.Raw(Model.AllServices[i].UnitPrice)
+                    </th>
+                    <th>
+                        @Html.Raw(Model.AllServices[i].NetPrice)
+                    </th>
+                    <th>
+                        @Html.Raw(Model.AllServices[i].Vat)
+                    </th>
+                    <th>
+                       @Html.Raw(Model.AllServices[i].VatAmount)
+                    </th>
+                    <th>
+                       @Html.Raw(Model.AllServices[i].PretaxPrice)
+                    </th>
+                    <input type="hidden" name="Id" value="@Html.Raw(Model.AllServices[i].Id)" />
+                    <input type='hidden' name='lista[@i]' value="@Html.Raw(Model.AllServices[i].Id)" />
+                </tr>
+            }
+            <tr>
+                <th>
+                    Sum
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th bgcolor="aqua">
+                    @Model.AllServices.Sum(p => p.VatAmount)
+                </th>
+                <th bgcolor="aqua">
+                    @Model.AllServices.Sum(p => p.PretaxPrice)
+                </th>
+            </tr>
+        </tbody>
+    </table>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <button type="submit" class="btn btn-info">Pdf</button>
+                <button type="submit" value="zapisz" name="Save" class="btn btn-info">Save</button>
+            </div>
+        </div> 
+    </div><br/><br /><br /><br /><br /><br /><br />
 </form>
 
-        @section scripts
+@section scripts
 {
 
  <script type="text/javascript">
