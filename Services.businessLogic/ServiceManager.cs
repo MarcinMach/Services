@@ -65,7 +65,7 @@ namespace Services.businessLogic
                 using (var context = new ServicesDBEntities())
                 {
                     //TODO: Tu bedzie miejsce na kod ? usuń prosze puste linie formatowanie a być spójne kodu .
-
+                    //TODO: co robi contains ? 
                     var services = from c in context.Services
                                    where servicesId.Contains(c.Id)
                                    select c;

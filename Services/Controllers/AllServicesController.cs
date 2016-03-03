@@ -113,14 +113,13 @@ namespace Services.Controllers
         public ActionResult Delete(int Id)
         {
             var selected = ServiceManager.Delete(Id);
+
             return View("Applay");
         }
 
         public ActionResult Details(int id)
         {
-
             var selected = ServiceManager.GetById(id);
-
             return View(selected);
         }
 
