@@ -14,8 +14,14 @@ namespace Services.Models
 
         public List<int> SelectedServices { get; set; }
 
+        public List<int> SelectedCustomers { get; set; }
+
         public int SelectedCustomer { get; set; }
 
         public int SelectedService { get; set; }
+
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
     }
 }

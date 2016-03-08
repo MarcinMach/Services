@@ -1,15 +1,18 @@
 ﻿@model Services.Models.CustomerServiceModel
 
-
 <form action="@Url.Action("GenerateInvoice")" method="post" name="formularz">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
     <div class="form-horizontal">
         <div class="row">
             <div class="col-lg-6">
                 <h4>Customer</h4>
                 <hr />
+
                 <div class="form-group">
                     <label class="control-label col-md-2"> Customer Name: </label>
                     <div class="col-md-10">
@@ -71,8 +74,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="customertable">
-                        </tbody>
+                        <tbody id="customertable"></tbody>
                     </table>
                 </div>
             </div>
@@ -123,108 +125,160 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-10">                       
-                            <button type="button" class="btn btn-info" id="addServiceButton">Add Service</button>
-                            <button type="submit" class="btn btn-info" id="Send">Create Invoice</button>
+                    <div class="col-md-10">
+                        <button type="button" class="btn btn-info" id="addServiceButton">Add Service</button>
+                        <button type="submit" class="btn btn-info" id="Send">Create Invoice</button>
                     </div>
                 </div>
-            </div>           
-        </div>
+            </div>
+        </div> 
+            <div >
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+             
+            </div>
+
     </div>
 </form>
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="text-center modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
 
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("Surname", "Index", new { sortOrder = ViewBag.SurnameSortParm })
+            </th>
+            <th></th>
+        </tr>
+
+        
+        @foreach (var item in Model.Customers)
+        {
+            <tr>
+                <td>
+                   @Html.DropDownListFor(m => m.NameModel.Customers, new { @id = "selectedCustomer" })
+                </td>
+
+                </tr>
+         }
+                </p>
+            </table>
+    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section scripts
 {
+
 <script type="text/javascript">
     $(document).ready(function () {
         var ServiceTable = [];
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').focus()
+        })
 
-            function CreateService() {
-                this.serviceName = $("#serviceName").val();
-                this.unitPrice = $("#unitPrice").val();
-                this.netPrice = $("#netPrice").val(),
-                this.vat = $("#vat").val(),
-                this.vatAmount = $("#vatAmount").val(),
-                this.pretaxPrice = $("#pretaxPrice").val();
-                this.id = $("#selectedService").val();                
+        function CreateService() {
+            this.serviceName = $("#serviceName").val();
+            this.unitPrice = $("#unitPrice").val();
+            this.netPrice = $("#netPrice").val(),
+            this.vat = $("#vat").val(),
+            this.vatAmount = $("#vatAmount").val(),
+            this.pretaxPrice = $("#pretaxPrice").val();
+            this.id = $("#selectedService").val();                
+        }
+
+        $("#addServiceButton").click(function () {
+            var serviceId = $("#selectedService").val();
+            var createservice = new CreateService();
+            var length = ServiceTable.length;
+            ServiceTable[length] = createservice;                
+            $("#customertable").html();
+            var htmla;
+            for (var i = 0; i <= length; i++) {
+                htmla +=
+                    "<tr>" +
+                        "<td> " + ServiceTable[i].serviceName + "<input type='hidden' name='selectedServices[" + i + "]' value='" + ServiceTable[i].id + "' /></td>" +
+                        "<td> " + ServiceTable[i].unitPrice + "</td>" +
+                        "<td> " + ServiceTable[i].netPrice + "</td>" +
+                        "<td> " + ServiceTable[i].vat + "</td>" +
+                        "<td> " + ServiceTable[i].vatAmount + "</td>" +
+                        "<td> " + ServiceTable[i].pretaxPrice + "</td>" +                           
+                    "</tr>"                   
             }
 
-            $("#addServiceButton").click(function () {
-                var serviceId = $("#selectedService").val();
-                var createservice = new CreateService();
-                var length = ServiceTable.length;
-                ServiceTable[length] = createservice;                
-                $("#customertable").html();
-                var htmla;
-                for (var i = 0; i <= length; i++) {
-                    htmla +=
-                        "<tr>" +
-                            "<td> " + ServiceTable[i].serviceName + "<input type='hidden' name='selectedServices[" + i + "]' value='" + ServiceTable[i].id + "' /></td>" +
-                            "<td> " + ServiceTable[i].unitPrice + "</td>" +
-                            "<td> " + ServiceTable[i].netPrice + "</td>" +
-                            "<td> " + ServiceTable[i].vat + "</td>" +
-                            "<td> " + ServiceTable[i].vatAmount + "</td>" +
-                            "<td> " + ServiceTable[i].pretaxPrice + "</td>" +                           
-                        "</tr>"                   
+            $("#customertable").html(htmla);
+        });
+
+        $("#selectCustomerButton").click(function () {
+            var customerId = $("#selectedCustomer").val();
+            $.ajax({
+                url: '@Url.Action("GetCustomerById")'+"?customerId="+customerId,
+                type: "GET",
+                success: function (json) {
+                    $("#name").val(json.name);
+                    $("#surname").val(json.surname);
+                    $("#companyName").val(json.companyName);
+                    $("#city").val(json.city);
+                    $("#street").val(json.street);
+                    console.log(json);
+                },
+                error: function (xhr, status, errorThrown) {
+                    alert(xhr);
+                    alert(status);
                 }
-
-                $("#customertable").html(htmla);
             });
+        });
 
-            $("#selectCustomerButton").click(function () {
-                var customerId = $("#selectedCustomer").val();
-                $.ajax({
-                    url: '@Url.Action("GetCustomerById")'+"?customerId="+customerId,
-                    type: "GET",
-                    success: function (json) {
-                        $("#name").val(json.name);
-                        $("#surname").val(json.surname);
-                        $("#companyName").val(json.companyName);
-                        $("#city").val(json.city);
-                        $("#street").val(json.street);
-                        console.log(json);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        alert(xhr);
-                        alert(status);
-                    }
-                });
+        $("#selectServiceButton").click(function () {
+            var serviceId = $("#selectedService").val();
+
+            $.ajax({
+                url: '@Url.Action("GetServiceById")' + "?serviceId=" + serviceId,
+                type: "GET",
+                success: function (json) {
+                    $("#serviceName").val(json.serviceName);
+                    $("#unitPrice").val(json.unitPrice);
+                    $("#netPrice").val(json.netPrice);
+                    $("#vat").val(json.vat);
+                    $("#vatAmount").val(json.vatAmount);
+                    $("#pretaxPrice").val(json.pretaxPrice);
+                    console.log(json);
+                },
+                error: function (xhr, status, errorThrown) {
+                    alert(xhr);
+                    alert(status);
+                }
             });
+        });
 
-            $("#selectServiceButton").click(function () {
-                var serviceId = $("#selectedService").val();
-
-                $.ajax({
-                    url: '@Url.Action("GetServiceById")' + "?serviceId=" + serviceId,
-                    type: "GET",
-                    success: function (json) {
-                        $("#serviceName").val(json.serviceName);
-                        $("#unitPrice").val(json.unitPrice);
-                        $("#netPrice").val(json.netPrice);
-                        $("#vat").val(json.vat);
-                        $("#vatAmount").val(json.vatAmount);
-                        $("#pretaxPrice").val(json.pretaxPrice);
-                        console.log(json);
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        alert(xhr);
-                        alert(status);
-                    }
-                });
-            });
-
-            $("#Send").click(function () {
-                console.log($("form[name=formularz]").serialize());
-                $.ajax({
-                    url: '@Url.Action("GenerateInvoice")',
-                    type: "GET",                 
-                    cache: false,
-                    data: $("form[name=formularz]").serialize(),
-                    success: function (data) {
-                        $("name").get(data.name),
-                        $("selectServiceButton").get(data.id)
-                        $("addServiceButton").get(data.id)
-                    }}
-             )})
-        }) </script>
+        $("#Send").click(function () {
+            console.log($("form[name=formularz]").serialize());
+            $.ajax({
+                url: '@Url.Action("GenerateInvoice")',
+                type: "GET",
+                cache: false,
+                data: $("form[name=formularz]").serialize(),
+                success: function (data) {
+                    $("name").get(data.name),
+                    $("selectServiceButton").get(data.id)
+                    $("addServiceButton").get(data.id)
+                }
+            }
+         )
+        });       
+    });
+    </script>
 }

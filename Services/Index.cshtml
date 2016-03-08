@@ -1,0 +1,294 @@
+﻿@model Services.Models.CustomerServiceModel
+
+
+<form action="@Url.Action("GenerateInvoice")" method="post" name="formularz">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>Customer</h4>
+                <hr />
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Customer Name: </label>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.SelectedCustomer, @Model.Customers, new { @id = "selectedCustomer" })
+                        <button type="button" class="btn btn-info" id="selectCustomerButton">Select customer</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Name: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Surname: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="surname" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Company: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="companyName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> City: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="city" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Street: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="street" />
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ServiceName
+                                </th>
+                                <th>
+                                    UnitPrice
+                                </th>
+                                <th>
+                                    NetPrice
+                                </th>
+                                <th>
+                                    VAT
+                                </th>
+                                <th>
+                                    VATAmount
+                                </th>
+                                <th>
+                                    PretaxPrive
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="customertable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h4>Services</h4>
+                <hr />
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Service Name: </label>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.SelectedService, @Model.Service, new { @id = "selectedService" })
+                        <button type="button" class="btn btn-info" id="selectServiceButton">Selectds Service</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Service: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="serviceName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> UnitPrice: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="unitPrice" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> NetPrice: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="netPrice" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> Vat: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="vat" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> VatAmount: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="vatAmount" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2"> PretaxPrice: </label>
+                    <div class="col-md-10">
+                        <input type="text" id="pretaxPrice" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">                       
+                            <button type="button" class="btn btn-info" id="addServiceButton">Add Service</button>
+                            <button type="submit" class="btn btn-info" id="Send">Create Invoice</button>
+                    </div>
+                </div>
+            </div>           
+        </div>
+        <div class="container">
+            <button type="submit" class="btn btn-info btn-lg" id="GetCustomers" data-toggle="modal" data-target="#myModal">Open Small Modal</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class= "modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("Surname", "Index", new { sortOrder = ViewBag.SurnameSortParm })
+                </th>
+                <th></th>
+            </tr>
+       </thead>
+<tbody id="allCustomerTable"></tbody>   
+    </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ServiceTable = [];
+        var CustomerTable = [];
+
+        function CreateService() {
+            this.serviceName = $("#serviceName").val();
+            this.unitPrice = $("#unitPrice").val();
+            this.netPrice = $("#netPrice").val(),
+            this.vat = $("#vat").val(),
+            this.vatAmount = $("#vatAmount").val(),
+            this.pretaxPrice = $("#pretaxPrice").val();
+            this.id = $("#selectedService").val();                
+        }
+
+        function CreateCustomer() {
+            this.name;
+
+        }
+
+        $("#addServiceButton").click(function () {
+            var serviceId = $("#selectedService").val();
+            var createservice = new CreateService();
+            var length = ServiceTable.length;
+            ServiceTable[length] = createservice;                
+            $("#customertable").html();
+            var htmla;
+            for (var i = 0; i <= length; i++) {
+                htmla +=
+                    "<tr>" +
+                        "<td> " + ServiceTable[i].serviceName + "<input type='hidden' name='selectedServices[" + i + "]' value='" + ServiceTable[i].id + "' /></td>" +
+                        "<td> " + ServiceTable[i].unitPrice + "</td>" +
+                        "<td> " + ServiceTable[i].netPrice + "</td>" +
+                        "<td> " + ServiceTable[i].vat + "</td>" +
+                        "<td> " + ServiceTable[i].vatAmount + "</td>" +
+                        "<td> " + ServiceTable[i].pretaxPrice + "</td>" +                           
+                    "</tr>"                   
+            }
+
+            $("#customertable").html(htmla);
+        });
+
+   
+    
+
+        $("#GetCustomers").click(function () {
+            var allCustomers = new CreateCustomer();
+            $.ajax({
+                url: '@Url.Action("GetCustomers")',
+                type: "GET",
+                success: function (json) {
+                    alert(json)
+                    var lenght = ServiceTable.length;
+                    CustomerTable[lenght] = allCustomers;
+                    $("allCustomerTable").html();
+                    var custTable;
+                    for (var i = 0; i <= lenght; i++) {
+                        custTable +=
+                            "<tr>" +
+                            "<td" + CustomerTable[i].name + "</td>" +
+                            "</tr>"
+                    }
+                    $("allCustomerTable").html(custTable);
+                }
+            });
+        });
+            $("#selectCustomerButton").click(function () {
+                var customerId = $("#selectedCustomer").val();
+                $.ajax({
+                    url: '@Url.Action("GetCustomerById")'+"?customerId="+customerId,
+                    type: "GET",
+                    success: function (json) {
+                        $("#name").val(json.name);
+                        $("#surname").val(json.surname);
+                        $("#companyName").val(json.companyName);
+                        $("#city").val(json.city);
+                        $("#street").val(json.street);
+                        console.log(json);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        alert(xhr);
+                        alert(status);
+                    }
+                });
+            });
+
+            $("#selectServiceButton").click(function () {
+                var serviceId = $("#selectedService").val();
+
+                $.ajax({
+                    url: '@Url.Action("GetServiceById")' + "?serviceId=" + serviceId,
+                    type: "GET",
+                    success: function (json) {
+                        $("#serviceName").val(json.serviceName);
+                        $("#unitPrice").val(json.unitPrice);
+                        $("#netPrice").val(json.netPrice);
+                        $("#vat").val(json.vat);
+                        $("#vatAmount").val(json.vatAmount);
+                        $("#pretaxPrice").val(json.pretaxPrice);
+                        console.log(json);
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        alert(xhr);
+                        alert(status);
+                    }
+                });
+            });
+
+            $("#Send").click(function () {
+                console.log($("form[name=formularz]").serialize());
+                $.ajax({
+                    url: '@Url.Action("GenerateInvoice")',
+                    type: "GET",                 
+                    cache: false,
+                    data: $("form[name=formularz]").serialize(),
+                    success: function (data) {
+                        $("name").get(data.name),
+                        $("selectServiceButton").get(data.id)
+                        $("addServiceButton").get(data.id)
+                    }}
+             )})
+        }) </script>
+}
